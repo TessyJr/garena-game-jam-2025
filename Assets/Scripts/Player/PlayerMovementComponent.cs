@@ -89,4 +89,6 @@ public class PlayerMovementComponent : MonoBehaviour
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
     }
+
+    public bool GetFacingRight() => facingRight;
 }
