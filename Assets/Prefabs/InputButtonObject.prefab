@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9024402226473949973}
   m_Layer: 7
   m_Name: InputButtonObject
-  m_TagString: Untagged
+  m_TagString: ButtonObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

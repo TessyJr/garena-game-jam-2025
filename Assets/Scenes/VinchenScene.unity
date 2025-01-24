@@ -729,6 +729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonA: 1
   buttonD: 1
+  buttonW: 1
   buttonSpace: 1
 --- !u!4 &467785052
 Transform:
@@ -1446,6 +1447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   jumpForce: 16
+  climbSpeed: 4
   groundCheck: {fileID: 1235498549}
   groundCheckRadius: 0.2
   groundLayer:
