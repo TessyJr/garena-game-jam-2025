@@ -115,7 +115,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -134,9 +134,9 @@ TextureImporter:
       name: Transporter_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 32
         y: 0
-        width: 96
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -155,9 +155,9 @@ TextureImporter:
       name: Transporter_2
       rect:
         serializedVersion: 2
-        x: 192
+        x: 64
         y: 0
-        width: 96
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -176,9 +176,9 @@ TextureImporter:
       name: Transporter_3
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 0
-        width: 96
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -189,6 +189,174 @@ TextureImporter:
       bones: []
       spriteID: 71399964a98d347bf8bf4c0828494a94
       internalID: -1878826424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transporter_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f1d95ae4893c4134ac4b45d9a32d9cd
+      internalID: 1285933586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transporter_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f99a23a82cf040e29aa96997223c889
+      internalID: 1091015882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transporter_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a558a128a13ec4e44b9533cbfac03285
+      internalID: 584025603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transporter_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68aa5f477b7d641d79c62449e77ed9eb
+      internalID: -60053004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transporter_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd9354e3df2f34ecd8741517ef0fa7cb
+      internalID: 260347745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transporter_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4f57ab63c87844ee836fe569f9699b0
+      internalID: -1971805297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transporter_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee67831e2571e4815bc98436d6e07421
+      internalID: -1886311904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transporter_11
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ff7cf5a52998458f86eb58e28a909c5
+      internalID: -2125530617
       vertices: []
       indices: 
       edges: []
@@ -206,8 +374,16 @@ TextureImporter:
     nameFileIdTable:
       Transporter_0: -938630276
       Transporter_1: 897930072
+      Transporter_10: -1886311904
+      Transporter_11: -2125530617
       Transporter_2: -2072346478
       Transporter_3: -1878826424
+      Transporter_4: 1285933586
+      Transporter_5: 1091015882
+      Transporter_6: 584025603
+      Transporter_7: -60053004
+      Transporter_8: 260347745
+      Transporter_9: -1971805297
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
