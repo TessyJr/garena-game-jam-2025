@@ -17,6 +17,7 @@ public class PlayerInputComponent : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
+            _playerMovement.enabled = false;
             // Disable A
             if (Input.GetKeyDown(KeyCode.A) && GameInputManager.Instance.IsButtonActive("A"))
             {
@@ -42,6 +43,10 @@ public class PlayerInputComponent : MonoBehaviour
                 Debug.Log("Button SPACE disabled");
                 DropObject(KeyCode.Space);
             }
+        }
+        else
+        {
+            _playerMovement.enabled = true;
         }
     }
 
