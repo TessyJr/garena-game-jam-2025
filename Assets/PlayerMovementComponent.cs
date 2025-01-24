@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovementComponent : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float moveSpeed = 5f;
-    public float jumpForce = 10f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float jumpForce = 10f;
 
     [Header("Ground Check Settings")]
-    public Transform groundCheck;
-    public float groundCheckRadius = 0.2f;
-    public LayerMask groundLayer;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private LayerMask groundLayer;
 
     private Rigidbody2D rb;
-    [SerializeField] private bool isGrounded;
-    private bool facingRight = true; // Keeps track of the sprite's facing direction
+    private bool isGrounded;
+    private bool facingRight = true;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +25,35 @@ public class PlayerMovementComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Handle horizontal movement
-        float moveInput = Input.GetAxis("Horizontal");
+        // Check if the player is grounded
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        // Handle movement based on active buttons
+        HandleMovement();
+
+        // Handle jumping based on active buttons
+        HandleJumping();
+    }
+
+    private void HandleMovement()
+    {
+        float moveInput = 0f;
+
+        // Check if buttonA (left movement) is active
+        if (GameInputManager.Instance.buttonA && Input.GetKey(KeyCode.A))
+        {
+            moveInput = -1f; // Move left
+        }
+
+        // Check if buttonD (right movement) is active
+        if (GameInputManager.Instance.buttonD && Input.GetKey(KeyCode.D))
+        {
+            moveInput = 1f; // Move right
+        }
+
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
-        // Flip the character when moving left or right
+        // Flip the character sprite
         if (moveInput > 0 && !facingRight)
         {
             Flip();
@@ -40,27 +62,25 @@ public class PlayerMovementComponent : MonoBehaviour
         {
             Flip();
         }
+    }
 
-        // Check if the player is grounded
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-        // Handle jumping
-        if (Input.GetButtonDown("Jump") && isGrounded)
+    private void HandleJumping()
+    {
+        // Check if buttonSpace (jump) is active
+        if (GameInputManager.Instance.buttonSpace && Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
 
-    // Flip the character's sprite by scaling it in the X-axis
     private void Flip()
     {
-        facingRight = !facingRight; // Toggle the facing direction
+        facingRight = !facingRight;
         Vector3 scale = transform.localScale;
-        scale.x *= -1; // Flip the scale on the X-axis
+        scale.x *= -1;
         transform.localScale = scale;
     }
 
-    // Visualize ground check radius in the editor
     private void OnDrawGizmosSelected()
     {
         if (groundCheck != null)
