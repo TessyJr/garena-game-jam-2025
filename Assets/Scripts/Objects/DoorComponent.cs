@@ -2,14 +2,18 @@ using UnityEngine;
 
 public class DoorComponent : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    [SerializeField] private Animator _door;
+    [SerializeField] private BoxCollider2D _doorCollider;
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            PlayerKeyComponent key = collision.gameObject.GetComponent<PlayerKeyComponent>();
-            if(key._keyObtained == true){
+            PlayerKeyComponent key = other.gameObject.GetComponent<PlayerKeyComponent>();
+            if (key != null && key._keyObtained == true)
+            {
+                _door.SetBool("isOpened", true);
                 key.DropKey();
-                Destroy(gameObject);
+                Destroy(_doorCollider);
             }
         }
     }
