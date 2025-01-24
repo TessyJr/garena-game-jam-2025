@@ -32,6 +32,7 @@ public class ObjectInputButtonComponent : MonoBehaviour
         // Only enable the key if the object is on the ground
         if (overlap != null && isGrounded)
         {
+            print(1);
             if (!GameInputManager.Instance.Is2ButtonsActive())
             {
                 EnableKey();

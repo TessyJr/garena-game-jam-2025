@@ -177,7 +177,7 @@ MonoBehaviour:
   _text: {fileID: 681156547767534291}
   _overlapLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 8
   _overlapRadius: 0.1
   _groundCheck: {fileID: 9070758863925533671}
   _groundCheckRadius: 0.05
