@@ -1,8 +1,11 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectInputButtonComponent : MonoBehaviour
 {
     [SerializeField] private KeyCode _keyCode;
+    [SerializeField] private TextMeshProUGUI _text;
 
     [Header("Overlap Settings")]
     [SerializeField] private LayerMask _overlapLayer;
@@ -13,7 +16,12 @@ public class ObjectInputButtonComponent : MonoBehaviour
     [SerializeField] private float _groundCheckRadius = 0.2f;  // Radius for ground check
     [SerializeField] private LayerMask _groundLayer;  // Ground layer to check against
 
-    private void Update()
+    void Awake()
+    {
+        SetUpText();
+    }
+
+    void Update()
     {
         // Check if the object is overlapping with the designated layer
         Collider2D overlap = Physics2D.OverlapCircle(transform.position, _overlapRadius, _overlapLayer);
@@ -29,6 +37,25 @@ public class ObjectInputButtonComponent : MonoBehaviour
                 EnableKey();
                 Destroy(gameObject);
             }
+        }
+    }
+
+    private void SetUpText()
+    {
+        switch (_keyCode)
+        {
+            case KeyCode.A:
+                _text.text = "A";
+                LayoutRebuilder.ForceRebuildLayoutImmediate(_text.rectTransform);
+                break;
+            case KeyCode.D:
+                _text.text = "D";
+                LayoutRebuilder.ForceRebuildLayoutImmediate(_text.rectTransform);
+                break;
+            case KeyCode.Space:
+                _text.text = "Sp";
+                LayoutRebuilder.ForceRebuildLayoutImmediate(_text.rectTransform);
+                break;
         }
     }
 
@@ -53,5 +80,9 @@ public class ObjectInputButtonComponent : MonoBehaviour
         }
     }
 
-    public void SetKeyCode(KeyCode keyCode) => _keyCode = keyCode;
+    public void SetKeyCode(KeyCode keyCode)
+    {
+        _keyCode = keyCode;
+        SetUpText();
+    }
 }
