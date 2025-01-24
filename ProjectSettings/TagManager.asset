@@ -13,7 +13,7 @@ TagManager:
   - UI
   - Ground
   - TransparentObject
-  - 
+  - Ladder
   - 
   - 
   - 
@@ -38,6 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 4127477691
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 121161295
     locked: 0

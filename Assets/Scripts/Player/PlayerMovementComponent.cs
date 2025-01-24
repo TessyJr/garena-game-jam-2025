@@ -6,6 +6,7 @@ public class PlayerMovementComponent : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float climbSpeed = 4f;
 
     [Header("Ground Check Settings")]
     [SerializeField] private Transform groundCheck;
@@ -16,44 +17,38 @@ public class PlayerMovementComponent : MonoBehaviour
     private bool isGrounded;
     private bool facingRight = true;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Check if the player is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // Handle movement based on active buttons
         HandleMovement();
 
-        // Handle jumping based on active buttons
         HandleJumping();
+
+        HandleClimbing();
     }
 
     private void HandleMovement()
     {
         float moveInput = 0f;
 
-        // Check if buttonA (left movement) is active
         if (GameInputManager.Instance.buttonA && Input.GetKey(KeyCode.A))
         {
-            moveInput = -1f; // Move left
+            moveInput = -1f;
         }
 
-        // Check if buttonD (right movement) is active
         if (GameInputManager.Instance.buttonD && Input.GetKey(KeyCode.D))
         {
-            moveInput = 1f; // Move right
+            moveInput = 1f;
         }
 
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
-        // Flip the character sprite
         if (moveInput > 0 && !facingRight)
         {
             Flip();
@@ -66,11 +61,26 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void HandleJumping()
     {
-        // Check if buttonSpace (jump) is active
         if (GameInputManager.Instance.buttonSpace && Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
+    }
+
+    private void HandleClimbing()
+    {
+        float moveInput = 0f;
+
+        if (Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, LayerMask.GetMask("Ladder")))
+        {
+            if (GameInputManager.Instance.buttonW && Input.GetKey(KeyCode.W))
+            {
+                moveInput = 1f;
+            }
+
+            rb.velocity = new Vector2(rb.velocity.x, moveInput * climbSpeed);
+        }
+
     }
 
     private void Flip()
