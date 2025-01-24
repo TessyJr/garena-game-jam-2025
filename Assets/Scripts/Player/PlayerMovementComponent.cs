@@ -16,6 +16,8 @@ public class PlayerMovementComponent : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool facingRight = true;
+    private bool movementEnabled = true;
+
 
     void Start()
     {
@@ -35,6 +37,12 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (!movementEnabled)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            return;
+        }
+
         float moveInput = 0f;
 
         if (GameInputManager.Instance.buttonA && Input.GetKey(KeyCode.A))
@@ -61,7 +69,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void HandleJumping()
     {
-        if (GameInputManager.Instance.buttonSpace && Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (GameInputManager.Instance.buttonSpace && Input.GetKeyDown(KeyCode.Space) && isGrounded && movementEnabled)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
@@ -101,4 +109,14 @@ public class PlayerMovementComponent : MonoBehaviour
     }
 
     public bool GetFacingRight() => facingRight;
+
+    public void SetMovementEnabled(bool enabled)
+    {
+        movementEnabled = enabled;
+        if (!enabled)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+    }
+
 }
