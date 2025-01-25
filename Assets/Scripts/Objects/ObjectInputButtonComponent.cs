@@ -1,11 +1,8 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ObjectInputButtonComponent : MonoBehaviour
 {
     [SerializeField] private KeyCode _keyCode;
-    [SerializeField] private TextMeshProUGUI _text;
 
     [Header("Overlap Settings")]
     [SerializeField] private LayerMask _overlapLayer;
@@ -16,9 +13,23 @@ public class ObjectInputButtonComponent : MonoBehaviour
     [SerializeField] private float _groundCheckRadius = 0.2f;  // Radius for ground check
     [SerializeField] private LayerMask _groundLayer;  // Ground layer to check against
 
-    void Awake()
+    [Header("Sprite Settings")]
+    [SerializeField] private Sprite _wKeySprite;
+    [SerializeField] private Sprite _aKeySprite;
+    [SerializeField] private Sprite _sKeySprite;
+    [SerializeField] private Sprite _dKeySprite;
+    [SerializeField] private Sprite _spaceKeySprite;
+
+    private SpriteRenderer _spriteRenderer;
+
+    private void Awake()
     {
-        SetUpText();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void Start()
+    {
+        SetUpSprite();
     }
 
     void Update()
@@ -37,33 +48,6 @@ public class ObjectInputButtonComponent : MonoBehaviour
         }
     }
 
-    private void SetUpText()
-    {
-        switch (_keyCode)
-        {
-            case KeyCode.A:
-                _text.text = "A";
-                LayoutRebuilder.ForceRebuildLayoutImmediate(_text.rectTransform);
-                break;
-            case KeyCode.D:
-                _text.text = "D";
-                LayoutRebuilder.ForceRebuildLayoutImmediate(_text.rectTransform);
-                break;
-            case KeyCode.W:
-                _text.text = "W";
-                LayoutRebuilder.ForceRebuildLayoutImmediate(_text.rectTransform);
-                break;
-            case KeyCode.S:
-                _text.text = "S";
-                LayoutRebuilder.ForceRebuildLayoutImmediate(_text.rectTransform);
-                break;
-            case KeyCode.Space:
-                _text.text = "Sp";
-                LayoutRebuilder.ForceRebuildLayoutImmediate(_text.rectTransform);
-                break;
-        }
-    }
-
     // Optional: Visualize the overlap radius and ground check in the editor
     private void OnDrawGizmosSelected()
     {
@@ -74,6 +58,28 @@ public class ObjectInputButtonComponent : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(_groundCheck.position, _groundCheckRadius);
+        }
+    }
+
+    private void SetUpSprite()
+    {
+        switch (_keyCode)
+        {
+            case KeyCode.W:
+                _spriteRenderer.sprite = _wKeySprite;
+                break;
+            case KeyCode.A:
+                _spriteRenderer.sprite = _aKeySprite;
+                break;
+            case KeyCode.S:
+                _spriteRenderer.sprite = _sKeySprite;
+                break;
+            case KeyCode.D:
+                _spriteRenderer.sprite = _dKeySprite;
+                break;
+            case KeyCode.Space:
+                _spriteRenderer.sprite = _spaceKeySprite;
+                break;
         }
     }
 
@@ -88,6 +94,6 @@ public class ObjectInputButtonComponent : MonoBehaviour
     public void SetKeyCode(KeyCode keyCode)
     {
         _keyCode = keyCode;
-        SetUpText();
+        SetUpSprite();
     }
 }
