@@ -33,6 +33,11 @@ public class MenuCanvasManager : MonoBehaviour
             ToggleSpectateMode();
             ClearButtonFocus();
         });
+        _homeButton.onClick.AddListener(() =>
+        {
+            HomeScene();
+            ClearButtonFocus();
+        });
     }
     void Update()
     {
@@ -46,6 +51,12 @@ public class MenuCanvasManager : MonoBehaviour
     {
         StopAllCoroutines();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void HomeScene()
+    {
+        StopAllCoroutines();
+        SceneManager.LoadScene("MenuScene");
     }
 
     void ToggleSpectateMode()

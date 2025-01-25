@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ButtonObject
+  - SceneBgm
   layers:
   - Default
   - TransparentFX

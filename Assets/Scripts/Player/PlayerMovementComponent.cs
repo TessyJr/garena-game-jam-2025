@@ -42,10 +42,13 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (!movementEnabled || _menuCanvasManager._isSpectating)
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-            return;
+
+        if( _menuCanvasManager != null){
+            if (!movementEnabled || _menuCanvasManager._isSpectating)
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                return;
+            }
         }
 
         float moveInput = 0f;
@@ -74,12 +77,15 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void HandleJumping()
     {
-        if (GameInputManager.Instance.buttonSpace && Input.GetKeyDown(KeyCode.Space) && isGrounded && movementEnabled && !_menuCanvasManager._isSpectating)
+        if (_menuCanvasManager == null || !GameInputManager.Instance.buttonSpace || !Input.GetKeyDown(KeyCode.Space) || !isGrounded || !movementEnabled || _menuCanvasManager._isSpectating)
         {
-            _dust.Play();
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            return;
         }
+
+        _dust.Play();
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
+
 
     private void HandleClimbing()
     {

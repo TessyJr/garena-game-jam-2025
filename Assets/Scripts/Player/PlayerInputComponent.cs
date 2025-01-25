@@ -18,7 +18,7 @@ public class PlayerInputComponent : MonoBehaviour
 
     void Update()
     {
-        if (!_menuCanvasManager._isSpectating)
+        if (_menuCanvasManager == null || !_menuCanvasManager._isSpectating)
         {
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
