@@ -36,6 +36,15 @@ public class PlayerInputComponent : MonoBehaviour
                 DropObject(KeyCode.D);
             }
 
+            // Disable W
+            if (Input.GetKeyDown(KeyCode.W) && GameInputManager.Instance.IsButtonActive("W"))
+            {
+
+                GameInputManager.Instance.SetButtonState("W", false);
+                Debug.Log("Button W disabled");
+                DropObject(KeyCode.W);
+            }
+
             // Disable SPACE
             if (Input.GetKeyDown(KeyCode.Space) && GameInputManager.Instance.IsButtonActive("SPACE"))
             {
