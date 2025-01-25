@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class RestartCanvasManager : MonoBehaviour
 {
-    [SerializeField] Button _restartButton;
+    [SerializeField] private Button _restartButton;
 
     void Start()
     {
@@ -13,6 +14,8 @@ public class RestartCanvasManager : MonoBehaviour
 
     void ReloadScene()
     {
+        // Stop all coroutines and ensure no lingering references to destroyed objects
+        StopAllCoroutines();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
