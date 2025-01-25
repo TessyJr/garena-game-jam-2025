@@ -13,6 +13,16 @@ public class MovingPlatformTrigger : MonoBehaviour
     private bool isPlayerInTrigger = false; // Whether the player is in the trigger zone
     private Coroutine moveCoroutine; // Reference to the running coroutine
 
+    [SerializeField] private Sprite _buttonOn;
+    [SerializeField] private Sprite _buttonOff;
+
+    private SpriteRenderer _spriteRenderer;
+
+    private void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void Start()
     {
         if (platform != null)
@@ -35,6 +45,7 @@ public class MovingPlatformTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("ButtonObject"))
         {
+            _spriteRenderer.sprite = _buttonOn;
             isPlayerInTrigger = true;
 
             // Stop any existing coroutine and start a new one
@@ -64,6 +75,7 @@ public class MovingPlatformTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("ButtonObject"))
         {
+            _spriteRenderer.sprite = _buttonOff;
             isPlayerInTrigger = false;
 
             // Stop any existing coroutine and start a new one with finite movement
@@ -72,7 +84,7 @@ public class MovingPlatformTrigger : MonoBehaviour
                 StopCoroutine(moveCoroutine);
                 // moveCoroutine = StartCoroutine(MovePlatform(backForth));
             }
-            
+
         }
     }
 

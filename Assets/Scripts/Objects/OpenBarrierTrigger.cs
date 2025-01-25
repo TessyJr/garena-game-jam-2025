@@ -5,20 +5,34 @@ public class OpenBarrierTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject _barrier;
     [SerializeField] private float _openDuration;
+
+    [SerializeField] private Sprite _buttonOn;
+    [SerializeField] private Sprite _buttonOff;
+
+    private SpriteRenderer _spriteRenderer;
+
+    private void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            if(_barrier.activeSelf == true) 
+            if (_barrier.activeSelf == true)
             {
                 _barrier.SetActive(false);
+                _spriteRenderer.sprite = _buttonOn;
                 StartCoroutine(CloseBarrier());
             }
         }
     }
 
-    private IEnumerator CloseBarrier(){
+    private IEnumerator CloseBarrier()
+    {
         yield return new WaitForSeconds(_openDuration);
+        _spriteRenderer.sprite = _buttonOff;
         _barrier.SetActive(true);
     }
 }
