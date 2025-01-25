@@ -33,19 +33,16 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        if (!_menuCanvasManager._isSpectating)
-        {
-            HandleMovement();
+        HandleMovement();
 
-            HandleJumping();
+        HandleJumping();
 
-            HandleClimbing();
-        }
+        HandleClimbing();
     }
 
     private void HandleMovement()
     {
-        if (!movementEnabled)
+        if (!movementEnabled || _menuCanvasManager._isSpectating)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
             return;
@@ -77,7 +74,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void HandleJumping()
     {
-        if (GameInputManager.Instance.buttonSpace && Input.GetKeyDown(KeyCode.Space) && isGrounded && movementEnabled)
+        if (GameInputManager.Instance.buttonSpace && Input.GetKeyDown(KeyCode.Space) && isGrounded && movementEnabled && !_menuCanvasManager._isSpectating)
         {
             _dust.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -90,9 +87,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
         if (Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, LayerMask.GetMask("Ladder")))
         {
-            Debug.Log($"Is On Ladder");
-
-            if (GameInputManager.Instance.buttonW && Input.GetKey(KeyCode.W))
+            if (GameInputManager.Instance.buttonW && Input.GetKey(KeyCode.W) && !_menuCanvasManager._isSpectating)
             {
                 moveInput = 1f;
             }

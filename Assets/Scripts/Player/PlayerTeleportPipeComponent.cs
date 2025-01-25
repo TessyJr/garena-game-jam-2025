@@ -16,10 +16,7 @@ public class PlayerTeleportPipeComponent : MonoBehaviour
     {
         CheckPipe();
 
-        if (!_menuCanvasManager._isSpectating)
-        {
-            HandleTeleport();
-        }
+        HandleTeleport();
     }
 
     private void CheckPipe()
@@ -40,9 +37,7 @@ public class PlayerTeleportPipeComponent : MonoBehaviour
     {
         if (currentPipe != null)
         {
-            print($"Standing on: {currentPipe.name}");
-
-            if (GameInputManager.Instance.buttonS && Input.GetKeyDown(KeyCode.S))
+            if (GameInputManager.Instance.buttonS && Input.GetKeyDown(KeyCode.S) && !_menuCanvasManager._isSpectating)
             {
                 TeleportToOtherPipe(currentPipe);
             }
