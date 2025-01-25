@@ -898,6 +898,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &497022780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4890168213959070020, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
+  m_PrefabInstance: {fileID: 7950744681417111359}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &586559916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2892,6 +2897,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1126933448705124932, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
   m_PrefabInstance: {fileID: 7950744681417111359}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1631316770 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 970898239156090853, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
+  m_PrefabInstance: {fileID: 3278324719176418169}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bd43919896b8456dbad38e9e3b246ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1931522193
 GameObject:
   m_ObjectHideFlags: 0
@@ -4851,6 +4867,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2045572786 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4048898135677316712, guid: b3d26f2f072f6434089517c800b7c9f2, type: 3}
+  m_PrefabInstance: {fileID: 1475866332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3278324719176418169
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4859,29 +4886,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1683927430415815234, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1683927430415815234, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1683927430415815234, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1683927430415815234, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 970898239156090853, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 497022780}
+    - target: {fileID: 970898239156090853, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
+      propertyPath: _cinemachineCamera
+      value: 
+      objectReference: {fileID: 2045572786}
     - target: {fileID: 1989751213245933031, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1067626046}
     - target: {fileID: 4000833115862202834, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
       propertyPath: m_Name
-      value: RestartCanvas
+      value: MenuCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 6784183506609499394, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
       propertyPath: m_Pivot.x
@@ -5033,6 +5052,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 874291069502948233, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
+      propertyPath: _menuCanvasManager
+      value: 
+      objectReference: {fileID: 1631316770}
     - target: {fileID: 1126933448705124932, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6
@@ -5073,10 +5096,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3507154394456500247, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
+      propertyPath: _menuCanvasManager
+      value: 
+      objectReference: {fileID: 1631316770}
     - target: {fileID: 4890168213959070020, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8232351789992571122, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
+      propertyPath: _menuCanvasManager
+      value: 
+      objectReference: {fileID: 1631316770}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

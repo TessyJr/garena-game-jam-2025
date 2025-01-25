@@ -3,6 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerTeleportPipeComponent : MonoBehaviour
 {
+    [Header("Menu Canvas Settings")]
+    [SerializeField] MenuCanvasManager _menuCanvasManager;
+
     [Header("Pipe Check Settings")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.1f;
@@ -12,7 +15,11 @@ public class PlayerTeleportPipeComponent : MonoBehaviour
     void Update()
     {
         CheckPipe();
-        HandleTeleport();
+
+        if (!_menuCanvasManager._isSpectating)
+        {
+            HandleTeleport();
+        }
     }
 
     private void CheckPipe()

@@ -3,6 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovementComponent : MonoBehaviour
 {
+    [Header("Menu Canvas Settings")]
+    [SerializeField] MenuCanvasManager _menuCanvasManager;
+
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 10f;
@@ -27,11 +30,14 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        HandleMovement();
+        if (!_menuCanvasManager._isSpectating)
+        {
+            HandleMovement();
 
-        HandleJumping();
+            HandleJumping();
 
-        HandleClimbing();
+            HandleClimbing();
+        }
     }
 
     private void HandleMovement()

@@ -45,8 +45,8 @@ GameObject:
   - component: {fileID: 2966392060896346482}
   - component: {fileID: 3507154394456500247}
   - component: {fileID: 8232351789992571122}
-  - component: {fileID: 7140556604678340866}
   - component: {fileID: 874291069502948233}
+  - component: {fileID: 7140556604678340866}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8739b54ac870d48a691b3ac342441728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _menuCanvasManager: {fileID: 0}
   moveSpeed: 8
   jumpForce: 16
   climbSpeed: 4
@@ -228,8 +229,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0e56777d4e74d75a5d6d2ef6957152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _menuCanvasManager: {fileID: 0}
   _objectToSpawn: {fileID: 247254585816463233, guid: 3bb850d049b564c3ea98dae60c2ee336, type: 3}
   _spawnForce: 4
+--- !u!114 &874291069502948233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4890168213959070020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68647f2140b343fdb358305c000e097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _menuCanvasManager: {fileID: 0}
+  groundCheck: {fileID: 1070495546106370040}
+  groundCheckRadius: 0.1
+  pipeLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  currentPipe: {fileID: 0}
 --- !u!114 &7140556604678340866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,24 +265,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keyObtained: 0
   _keyIcon: {fileID: 6618662908558070832}
---- !u!114 &874291069502948233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4890168213959070020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f68647f2140b343fdb358305c000e097, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundCheck: {fileID: 1070495546106370040}
-  groundCheckRadius: 0.1
-  pipeLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  currentPipe: {fileID: 0}
 --- !u!1 &6618662908558070832
 GameObject:
   m_ObjectHideFlags: 0
