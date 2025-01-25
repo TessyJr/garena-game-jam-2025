@@ -16,6 +16,9 @@ public class PlayerMovementComponent : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Particle Settings")]
+    [SerializeField] private ParticleSystem _dust;
+
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool facingRight = true;
@@ -76,6 +79,7 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         if (GameInputManager.Instance.buttonSpace && Input.GetKeyDown(KeyCode.Space) && isGrounded && movementEnabled)
         {
+            _dust.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
@@ -103,6 +107,11 @@ public class PlayerMovementComponent : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+
+        if (isGrounded)
+        {
+            _dust.Play();
+        }
     }
 
     private void OnDrawGizmosSelected()
