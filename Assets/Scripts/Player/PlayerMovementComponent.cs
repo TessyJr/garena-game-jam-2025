@@ -81,6 +81,8 @@ public class PlayerMovementComponent : MonoBehaviour
 
         if (Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, LayerMask.GetMask("Ladder")))
         {
+            Debug.Log($"Is On Ladder");
+
             if (GameInputManager.Instance.buttonW && Input.GetKey(KeyCode.W))
             {
                 moveInput = 1f;
@@ -90,6 +92,7 @@ public class PlayerMovementComponent : MonoBehaviour
         }
 
     }
+
 
     private void Flip()
     {
