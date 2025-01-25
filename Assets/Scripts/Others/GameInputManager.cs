@@ -54,6 +54,9 @@ public class GameInputManager : MonoBehaviour
             case "W":
                 buttonW = state;
                 break;
+            case "S":
+                buttonS = state;
+                break;
             case "SPACE":
                 buttonSpace = state;
                 break;

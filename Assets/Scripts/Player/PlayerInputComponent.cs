@@ -18,10 +18,10 @@ public class PlayerInputComponent : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
             _playerMovement.SetMovementEnabled(false);
+
             // Disable A
             if (Input.GetKeyDown(KeyCode.A) && GameInputManager.Instance.IsButtonActive("A"))
             {
-
                 GameInputManager.Instance.SetButtonState("A", false);
                 Debug.Log("Button A disabled");
                 DropObject(KeyCode.A);
@@ -30,7 +30,6 @@ public class PlayerInputComponent : MonoBehaviour
             // Disable D
             if (Input.GetKeyDown(KeyCode.D) && GameInputManager.Instance.IsButtonActive("D"))
             {
-
                 GameInputManager.Instance.SetButtonState("D", false);
                 Debug.Log("Button D disabled");
                 DropObject(KeyCode.D);
@@ -39,7 +38,6 @@ public class PlayerInputComponent : MonoBehaviour
             // Disable W
             if (Input.GetKeyDown(KeyCode.W) && GameInputManager.Instance.IsButtonActive("W"))
             {
-
                 GameInputManager.Instance.SetButtonState("W", false);
                 Debug.Log("Button W disabled");
                 DropObject(KeyCode.W);
@@ -48,7 +46,6 @@ public class PlayerInputComponent : MonoBehaviour
             // Disable S
             if (Input.GetKeyDown(KeyCode.S) && GameInputManager.Instance.IsButtonActive("S"))
             {
-
                 GameInputManager.Instance.SetButtonState("S", false);
                 Debug.Log("Button S disabled");
                 DropObject(KeyCode.S);

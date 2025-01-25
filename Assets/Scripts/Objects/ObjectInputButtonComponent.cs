@@ -23,13 +23,10 @@ public class ObjectInputButtonComponent : MonoBehaviour
 
     void Update()
     {
-        // Check if the object is overlapping with the designated layer
         Collider2D overlap = Physics2D.OverlapCircle(transform.position, _overlapRadius, _overlapLayer);
 
-        // Check if the object is on the ground
         bool isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
 
-        // Only enable the key if the object is on the ground
         if (overlap != null && isGrounded)
         {
             if (!GameInputManager.Instance.Is2ButtonsActive())

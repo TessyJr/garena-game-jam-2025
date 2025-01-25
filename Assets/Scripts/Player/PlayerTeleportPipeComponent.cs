@@ -37,7 +37,6 @@ public class PlayerTeleportPipeComponent : MonoBehaviour
 
             if (GameInputManager.Instance.buttonS && Input.GetKeyDown(KeyCode.S))
             {
-                print(1);
                 TeleportToOtherPipe(currentPipe);
             }
         }

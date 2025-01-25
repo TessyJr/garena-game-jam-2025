@@ -69,6 +69,7 @@ public class KeySlotsManager : MonoBehaviour
         if (inputManager.buttonA) activeButtons.Add("A");
         if (inputManager.buttonD) activeButtons.Add("D");
         if (inputManager.buttonW) activeButtons.Add("W");
+        if (inputManager.buttonS) activeButtons.Add("S");
         if (inputManager.buttonSpace) activeButtons.Add("Sp");
 
         return activeButtons.ToArray();
