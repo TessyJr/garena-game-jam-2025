@@ -1496,6 +1496,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 339313924537899338, guid: 5fd24d51c2b124471b593474483df936, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 339313924537899338, guid: 5fd24d51c2b124471b593474483df936, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4272108119578188478, guid: 5fd24d51c2b124471b593474483df936, type: 3}
       propertyPath: m_Name
       value: Lock
@@ -1547,6 +1555,10 @@ PrefabInstance:
     - target: {fileID: 4908828936833875095, guid: 5fd24d51c2b124471b593474483df936, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862207704758598281, guid: 5fd24d51c2b124471b593474483df936, type: 3}
+      propertyPath: _sceneName
+      value: Level3Scene
       objectReference: {fileID: 0}
     - target: {fileID: 8255940873554283081, guid: 5fd24d51c2b124471b593474483df936, type: 3}
       propertyPath: _doorCollider
