@@ -147,3 +147,8 @@ MonoBehaviour:
   _openDuration: 7
   _buttonOn: {fileID: 21300000, guid: 363bce9d1d961499087f82600ff0e38c, type: 3}
   _buttonOff: {fileID: 21300000, guid: 99fc13339d6d94438ba613ba97016b39, type: 3}
+  _barrier1: {fileID: 21300000, guid: 501eaffc0b2e94613849c41b4eaca466, type: 3}
+  _barrier2: {fileID: 21300000, guid: 21d4d0eb3d3ff4a9e90959e4407be21a, type: 3}
+  _barrier3: {fileID: 21300000, guid: 1e3d2d2940ced4b149e5e64c286bef60, type: 3}
+  _barrier4: {fileID: 21300000, guid: 827cd2645ee9747fd9eed56503872f2f, type: 3}
+  _barrier5: {fileID: 21300000, guid: a5abcc2f3a5f34db6959a00dc0c9bc12, type: 3}
