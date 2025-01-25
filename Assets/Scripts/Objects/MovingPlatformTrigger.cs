@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MovingPlatformTrigger : MonoBehaviour
 {
@@ -10,13 +11,14 @@ public class MovingPlatformTrigger : MonoBehaviour
     [SerializeField] private int backForth = 2; // Number of back-and-forth movements
 
     private Vector3 initialPosition; // The platform's starting position
-    private bool isPlayerInTrigger = false; // Whether the player is in the trigger zone
     private Coroutine moveCoroutine; // Reference to the running coroutine
 
     [SerializeField] private Sprite _buttonOn;
     [SerializeField] private Sprite _buttonOff;
 
     private SpriteRenderer _spriteRenderer;
+
+    private HashSet<Collider2D> objectsInTrigger = new HashSet<Collider2D>(); // Track objects in the trigger
 
     private void Awake()
     {
@@ -33,7 +35,6 @@ public class MovingPlatformTrigger : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Stop coroutines when the object is destroyed
         if (moveCoroutine != null)
         {
             StopCoroutine(moveCoroutine);
@@ -45,29 +46,8 @@ public class MovingPlatformTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("ButtonObject"))
         {
-            _spriteRenderer.sprite = _buttonOn;
-            isPlayerInTrigger = true;
-
-            // Stop any existing coroutine and start a new one
-            if (moveCoroutine != null)
-            {
-                StopCoroutine(moveCoroutine);
-            }
-            moveCoroutine = StartCoroutine(MovePlatform(backForth));
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("ButtonObject"))
-        {
-            isPlayerInTrigger = true;
-
-            // Ensure infinite movement while the player stays in the trigger
-            if (moveCoroutine == null)
-            {
-                moveCoroutine = StartCoroutine(MovePlatform(-1)); // Infinite back-and-forth
-            }
+            objectsInTrigger.Add(other); // Add object to the set
+            UpdateButtonState();
         }
     }
 
@@ -75,16 +55,31 @@ public class MovingPlatformTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("ButtonObject"))
         {
-            _spriteRenderer.sprite = _buttonOff;
-            isPlayerInTrigger = false;
+            objectsInTrigger.Remove(other); // Remove object from the set
+            UpdateButtonState();
+        }
+    }
 
-            // Stop any existing coroutine and start a new one with finite movement
+    private void UpdateButtonState()
+    {
+        if (objectsInTrigger.Count > 0)
+        {
+            _spriteRenderer.sprite = _buttonOn;
+
+            if (moveCoroutine == null)
+            {
+                moveCoroutine = StartCoroutine(MovePlatform(-1)); // Infinite back-and-forth
+            }
+        }
+        else
+        {
+            _spriteRenderer.sprite = _buttonOff;
+
             if (moveCoroutine != null)
             {
                 StopCoroutine(moveCoroutine);
-                // moveCoroutine = StartCoroutine(MovePlatform(backForth));
+                moveCoroutine = null;
             }
-
         }
     }
 
@@ -111,8 +106,7 @@ public class MovingPlatformTrigger : MonoBehaviour
 
             completedRepetitions++;
 
-            // Exit loop if repetitions are complete and the player is not in the trigger
-            if (repetitions > 0 && completedRepetitions >= repetitions && !isPlayerInTrigger)
+            if (repetitions > 0 && completedRepetitions >= repetitions && objectsInTrigger.Count == 0)
             {
                 break;
             }
@@ -120,5 +114,4 @@ public class MovingPlatformTrigger : MonoBehaviour
 
         moveCoroutine = null; // Clear reference when the coroutine finishes
     }
-
 }
