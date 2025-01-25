@@ -56,6 +56,10 @@ public class ObjectInputButtonComponent : MonoBehaviour
                 _text.text = "W";
                 LayoutRebuilder.ForceRebuildLayoutImmediate(_text.rectTransform);
                 break;
+            case KeyCode.S:
+                _text.text = "S";
+                LayoutRebuilder.ForceRebuildLayoutImmediate(_text.rectTransform);
+                break;
             case KeyCode.Space:
                 _text.text = "Sp";
                 LayoutRebuilder.ForceRebuildLayoutImmediate(_text.rectTransform);

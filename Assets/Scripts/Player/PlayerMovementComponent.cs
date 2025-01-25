@@ -18,7 +18,6 @@ public class PlayerMovementComponent : MonoBehaviour
     private bool facingRight = true;
     private bool movementEnabled = true;
 
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -90,9 +89,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
             rb.velocity = new Vector2(rb.velocity.x, moveInput * climbSpeed);
         }
-
     }
-
 
     private void Flip()
     {

@@ -5,9 +5,10 @@ public class GameInputManager : MonoBehaviour
     public static GameInputManager Instance;
 
     [Header("Active Buttons")]
-    public bool buttonA = true;
-    public bool buttonD = true;
-    public bool buttonW = true;
+    public bool buttonA = false;
+    public bool buttonD = false;
+    public bool buttonW = false;
+    public bool buttonS = false;
     public bool buttonSpace = false;
 
     private int activeButtonCount = 0;
@@ -70,6 +71,7 @@ public class GameInputManager : MonoBehaviour
             "A" => buttonA,
             "D" => buttonD,
             "W" => buttonW,
+            "S" => buttonS,
             "SPACE" => buttonSpace,
             _ => false,
         };
@@ -82,6 +84,7 @@ public class GameInputManager : MonoBehaviour
         if (buttonA) activeButtonCount++;
         if (buttonD) activeButtonCount++;
         if (buttonW) activeButtonCount++;
+        if (buttonS) activeButtonCount++;
         if (buttonSpace) activeButtonCount++;
     }
 

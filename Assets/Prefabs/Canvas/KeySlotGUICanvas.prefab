@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 4082819825467574938}
   - component: {fileID: 4687550578154407802}
   - component: {fileID: 3890265487794658790}
+  - component: {fileID: 2435269060602560371}
   m_Layer: 5
   m_Name: KeySlotGUICanvas
   m_TagString: Untagged
@@ -452,6 +453,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2435269060602560371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4883583547103302194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc9a430b80f84390abf6ef4138081e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keySlot1: {fileID: 5366337352324418435}
+  keySlot2: {fileID: 5495983265671059007}
 --- !u!1 &5366337352324418435
 GameObject:
   m_ObjectHideFlags: 0
