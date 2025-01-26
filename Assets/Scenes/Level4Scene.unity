@@ -1419,7 +1419,7 @@ GameObject:
   - component: {fileID: 707294056}
   - component: {fileID: 707294055}
   - component: {fileID: 707294054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MovingPlatform_side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1532,7 +1532,7 @@ Transform:
   m_GameObject: {fileID: 707294053}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.96, y: -3.501, z: 0.05286658}
+  m_LocalPosition: {x: 2.96, y: -3.506, z: 0.05286658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5589,6 +5589,17 @@ MonoBehaviour:
   backForth: 1
   _buttonOn: {fileID: 21300000, guid: 363bce9d1d961499087f82600ff0e38c, type: 3}
   _buttonOff: {fileID: 21300000, guid: 99fc13339d6d94438ba613ba97016b39, type: 3}
+--- !u!114 &1580483107 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 970898239156090853, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
+  m_PrefabInstance: {fileID: 575857339}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bd43919896b8456dbad38e9e3b246ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1582348182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8656,7 +8667,7 @@ GameObject:
   - component: {fileID: 2088098287}
   - component: {fileID: 2088098286}
   - component: {fileID: 2088098285}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MovingPlatform_up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8905,6 +8916,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 874291069502948233, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
+      propertyPath: _menuCanvasManager
+      value: 
+      objectReference: {fileID: 1580483107}
     - target: {fileID: 1126933448705124932, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.58
@@ -8945,10 +8960,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3507154394456500247, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
+      propertyPath: _menuCanvasManager
+      value: 
+      objectReference: {fileID: 1580483107}
     - target: {fileID: 4890168213959070020, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8232351789992571122, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
+      propertyPath: _menuCanvasManager
+      value: 
+      objectReference: {fileID: 1580483107}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
