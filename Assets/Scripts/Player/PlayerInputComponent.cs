@@ -9,6 +9,9 @@ public class PlayerInputComponent : MonoBehaviour
     [SerializeField] GameObject _objectToSpawn;
     [SerializeField] float _spawnForce = 4f;
 
+    [Header("Sound Settings")]
+    [SerializeField] AudioSource _ejectSound;
+
     private PlayerMovementComponent _playerMovement;
 
     void Awake()
@@ -23,7 +26,6 @@ public class PlayerInputComponent : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 _playerMovement.SetMovementEnabled(false);
-
                 // Disable A
                 if (Input.GetKeyDown(KeyCode.A) && GameInputManager.Instance.IsButtonActive("A"))
                 {
@@ -76,6 +78,7 @@ public class PlayerInputComponent : MonoBehaviour
         if (_objectToSpawn != null)
         {
             // Spawn the object at the player's position
+            _ejectSound.Play();
             GameObject spawnedObject = Instantiate(_objectToSpawn, transform.position, Quaternion.identity);
             spawnedObject.GetComponent<ObjectInputButtonComponent>().SetKeyCode(keyCode);
 

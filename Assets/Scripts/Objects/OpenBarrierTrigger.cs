@@ -9,6 +9,7 @@ public class OpenBarrierTrigger : MonoBehaviour
     [Header("Button Sprites")]
     [SerializeField] private Sprite _buttonOn;
     [SerializeField] private Sprite _buttonOff;
+    [SerializeField] private AudioSource _barrierAudioSource;
 
     [Header("Barrier Sprites")]
     [SerializeField] private Sprite _barrier1; // Closed
@@ -60,8 +61,8 @@ public class OpenBarrierTrigger : MonoBehaviour
 
     private IEnumerator AnimateBarrierOpening()
     {
+        if(_barrierAudioSource != null) _barrierAudioSource.Play();
         Sprite[] openingSprites = { _barrier1, _barrier2, _barrier3, _barrier4, _barrier5 };
-
         foreach (var sprite in openingSprites)
         {
             _barrierSpriteRenderer.sprite = sprite;
@@ -74,8 +75,8 @@ public class OpenBarrierTrigger : MonoBehaviour
 
     private IEnumerator AnimateBarrierClosing()
     {
+        if(_barrierAudioSource != null) _barrierAudioSource.Play();
         Sprite[] closingSprites = { _barrier5, _barrier4, _barrier3, _barrier2, _barrier1 };
-
         foreach (var sprite in closingSprites)
         {
             _barrierSpriteRenderer.sprite = sprite;

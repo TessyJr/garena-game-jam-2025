@@ -7,8 +7,19 @@ public class KeyObjectComponent : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerKeyComponent key = other.GetComponent<PlayerKeyComponent>();
-            key.ObtainKey();
-            Destroy(gameObject);
+            var sound = gameObject.GetComponent<AudioSource>();
+
+            if (sound != null)
+            {
+                sound.Play();
+                key.ObtainKey();
+                Destroy(gameObject, 0.3f);
+            }
+            else
+            {
+                key.ObtainKey();
+                Destroy(gameObject);
+            }
         }
     }
 }

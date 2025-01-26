@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovementComponent : MonoBehaviour
@@ -19,10 +20,24 @@ public class PlayerMovementComponent : MonoBehaviour
     [Header("Particle Settings")]
     [SerializeField] private ParticleSystem _dust;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource _fallSound;
+
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool facingRight = true;
     private bool movementEnabled = true;
+    public event Action OnGrounded;
+
+    private void Awake()
+    {
+        OnGrounded += PlayFallSound;
+    }
+
+    private void OnDestroy()
+    {
+        OnGrounded -= PlayFallSound;
+    }
 
     void Start()
     {
@@ -31,13 +46,27 @@ public class PlayerMovementComponent : MonoBehaviour
 
     void Update()
     {
+        // Ground check logic
+        bool wasGrounded = isGrounded;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
+        // Trigger the event if isGrounded changes to true
+        if (!wasGrounded && isGrounded)
+        {
+            OnGrounded?.Invoke();
+        }
+
         HandleMovement();
-
         HandleJumping();
-
         HandleClimbing();
+    }
+
+    private void PlayFallSound()
+    {
+        if (_fallSound != null)
+        {
+            _fallSound.Play();
+        }
     }
 
     private void HandleMovement()
@@ -81,7 +110,6 @@ public class PlayerMovementComponent : MonoBehaviour
         {
             return;
         }
-
         _dust.Play();
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
@@ -134,5 +162,4 @@ public class PlayerMovementComponent : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
-
 }

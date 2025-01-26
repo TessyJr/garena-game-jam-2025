@@ -12,6 +12,7 @@ public class GameInputManager : MonoBehaviour
     public bool buttonSpace = false;
 
     private int activeButtonCount = 0;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class GameInputManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        audioSource = GetComponent<AudioSource>(); 
     }
 
     void Start()
@@ -40,9 +42,10 @@ public class GameInputManager : MonoBehaviour
             {
                 Debug.LogWarning("Cannot activate more than two buttons at once.");
                 return; // Don't activate more than two buttons
+            }else{
+                audioSource.Play(); 
             }
         }
-
         switch (button.ToUpper())
         {
             case "A":
