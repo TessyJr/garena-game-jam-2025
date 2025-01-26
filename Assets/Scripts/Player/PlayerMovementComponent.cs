@@ -31,6 +31,7 @@ public class PlayerMovementComponent : MonoBehaviour
     [SerializeField] private bool isGrounded;
     private bool facingRight = true;
     private bool movementEnabled = true;
+    private bool isOnLadder = false;
     public event Action OnGrounded;
 
     private void Awake()
@@ -80,6 +81,7 @@ public class PlayerMovementComponent : MonoBehaviour
             if (!movementEnabled || _menuCanvasManager._isSpectating)
             {
                 rb.velocity = new Vector2(0, rb.velocity.y);
+                if(!isOnLadder)
                 _animator.SetTrigger("idle"); // Trigger "idle" animation
                 return;
             }
@@ -99,13 +101,11 @@ public class PlayerMovementComponent : MonoBehaviour
 
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
-        if (Mathf.Abs(rb.velocity.x) > 0.01f)
+        
+        if(!isOnLadder)
         {
-            _animator.SetTrigger("move"); 
-        }
-        else
-        {
-            _animator.SetTrigger("idle");
+            if (Mathf.Abs(rb.velocity.x) > 0.01f) _animator.SetTrigger("move"); 
+            if(Mathf.Abs(rb.velocity.x) > 0.01f && Mathf.Abs(rb.velocity.x) > 0.01f)_animator.SetTrigger("idle");
         }
 
         if (moveInput > 0 && facingRight)
@@ -125,21 +125,23 @@ public class PlayerMovementComponent : MonoBehaviour
             return;
         }
         _dust.Play();
-        // _animator.SetTrigger("jump");
+        _animator.SetTrigger("jump");
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        // _animator.SetTrigger("idle");
+        _animator.SetTrigger("idle");
     }
 
 
     private void HandleClimbing()
     {
         float moveInput = 0f;
-        bool isOnLadder = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, LayerMask.GetMask("Ladder"));
+        isOnLadder = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, LayerMask.GetMask("Ladder"));
 
         if (isOnLadder)
         {
+            if(!isGrounded)_animator.SetTrigger("climb");
             if (GameInputManager.Instance.buttonW && Input.GetKey(KeyCode.W) && !_menuCanvasManager._isSpectating)
             {
+                
                 moveInput = 1f;
             }
             else if (GameInputManager.Instance.buttonS && Input.GetKey(KeyCode.S) && !_menuCanvasManager._isSpectating)
@@ -148,7 +150,6 @@ public class PlayerMovementComponent : MonoBehaviour
             }
 
             rb.velocity = new Vector2(rb.velocity.x, moveInput * climbSpeed);
-
             if (!_stairSound.isPlaying && !isGrounded) // Prevent restarting the sound
             {
                 _stairSound.Play();
@@ -157,6 +158,7 @@ public class PlayerMovementComponent : MonoBehaviour
         else
         {
             _stairSound.Stop(); // Ensure the sound stops when not on a ladder
+            _animator.SetTrigger("idle");
         }
     }
 
