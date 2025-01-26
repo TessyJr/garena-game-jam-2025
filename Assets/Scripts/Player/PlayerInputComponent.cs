@@ -79,7 +79,7 @@ public class PlayerInputComponent : MonoBehaviour
         {
             // Spawn the object at the player's position
             _ejectSound.Play();
-            GameObject spawnedObject = Instantiate(_objectToSpawn, transform.position + new Vector3(0f,0.5f,0f), Quaternion.identity);
+            GameObject spawnedObject = Instantiate(_objectToSpawn, transform.position + new Vector3(0f,0.3f,0f), Quaternion.identity);
             spawnedObject.GetComponent<ObjectInputButtonComponent>().SetKeyCode(keyCode);
 
             // Add force based on facing direction

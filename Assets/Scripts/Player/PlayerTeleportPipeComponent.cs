@@ -12,6 +12,9 @@ public class PlayerTeleportPipeComponent : MonoBehaviour
     [SerializeField] private LayerMask pipeLayer;
     [SerializeField] private PipeComponent currentPipe;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource _teleportSound;
+
     void Update()
     {
         CheckPipe();
@@ -46,6 +49,7 @@ public class PlayerTeleportPipeComponent : MonoBehaviour
 
     private void TeleportToOtherPipe(PipeComponent currentPipe)
     {
+        _teleportSound.Play();
         if (currentPipe != null && currentPipe.LinkedPipe != null)
         {
             // Teleport the player to the linked pipe

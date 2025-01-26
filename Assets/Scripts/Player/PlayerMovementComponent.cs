@@ -22,6 +22,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
     [Header("Audio Settings")]
     [SerializeField] private AudioSource _fallSound;
+    [SerializeField] private AudioSource _stairSound;
 
     [Header("Animator Settings")]
     [SerializeField] private Animator _animator;
@@ -124,24 +125,41 @@ public class PlayerMovementComponent : MonoBehaviour
             return;
         }
         _dust.Play();
+        // _animator.SetTrigger("jump");
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        // _animator.SetTrigger("idle");
     }
 
 
     private void HandleClimbing()
     {
         float moveInput = 0f;
+        bool isOnLadder = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, LayerMask.GetMask("Ladder"));
 
-        if (Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, LayerMask.GetMask("Ladder")))
+        if (isOnLadder)
         {
             if (GameInputManager.Instance.buttonW && Input.GetKey(KeyCode.W) && !_menuCanvasManager._isSpectating)
             {
                 moveInput = 1f;
             }
+            else if (GameInputManager.Instance.buttonS && Input.GetKey(KeyCode.S) && !_menuCanvasManager._isSpectating)
+            {
+                moveInput = -1f;
+            }
 
             rb.velocity = new Vector2(rb.velocity.x, moveInput * climbSpeed);
+
+            if (!_stairSound.isPlaying && !isGrounded) // Prevent restarting the sound
+            {
+                _stairSound.Play();
+            }
+        }
+        else
+        {
+            _stairSound.Stop(); // Ensure the sound stops when not on a ladder
         }
     }
+
 
     private void Flip()
     {
