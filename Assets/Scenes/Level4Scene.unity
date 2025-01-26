@@ -1237,17 +1237,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
---- !u!114 &575857340 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 970898239156090853, guid: cf0944c277e3d4b008a5d36610189485, type: 3}
-  m_PrefabInstance: {fileID: 575857339}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bd43919896b8456dbad38e9e3b246ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &586559916
 GameObject:
   m_ObjectHideFlags: 0
@@ -8916,10 +8905,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 874291069502948233, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
-      propertyPath: _menuCanvasManager
-      value: 
-      objectReference: {fileID: 575857340}
     - target: {fileID: 1126933448705124932, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.58
@@ -8960,34 +8945,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2966392060896346482, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
-      propertyPath: m_Size.x
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 2966392060896346482, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
-      propertyPath: m_Size.y
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 2966392060896346482, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 2966392060896346482, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
-      propertyPath: m_EdgeRadius
-      value: 0.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 3507154394456500247, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
-      propertyPath: _menuCanvasManager
-      value: 
-      objectReference: {fileID: 575857340}
     - target: {fileID: 4890168213959070020, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8232351789992571122, guid: c30aa1504c6cd493e9c69cf4e25d0e5b, type: 3}
-      propertyPath: _menuCanvasManager
-      value: 
-      objectReference: {fileID: 575857340}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

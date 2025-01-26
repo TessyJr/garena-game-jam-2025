@@ -1,7 +1,5 @@
 using UnityEngine;
 
-using UnityEngine;
-
 public class KeyObjectComponent : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
