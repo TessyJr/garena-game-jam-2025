@@ -79,14 +79,14 @@ public class PlayerInputComponent : MonoBehaviour
         {
             // Spawn the object at the player's position
             _ejectSound.Play();
-            GameObject spawnedObject = Instantiate(_objectToSpawn, transform.position, Quaternion.identity);
+            GameObject spawnedObject = Instantiate(_objectToSpawn, transform.position + new Vector3(0f,0.5f,0f), Quaternion.identity);
             spawnedObject.GetComponent<ObjectInputButtonComponent>().SetKeyCode(keyCode);
 
             // Add force based on facing direction
             Rigidbody2D rb = spawnedObject.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                Vector2 forceDirection = _playerMovement.GetFacingRight() ? Vector2.right : Vector2.left;
+                Vector2 forceDirection = _playerMovement.GetFacingRight() ? Vector2.left : Vector2.right;
                 rb.AddForce(forceDirection * _spawnForce, ForceMode2D.Impulse);
             }
         }

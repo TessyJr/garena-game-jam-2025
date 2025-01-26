@@ -23,8 +23,11 @@ public class PlayerMovementComponent : MonoBehaviour
     [Header("Audio Settings")]
     [SerializeField] private AudioSource _fallSound;
 
+    [Header("Animator Settings")]
+    [SerializeField] private Animator _animator;
+
     private Rigidbody2D rb;
-    private bool isGrounded;
+    [SerializeField] private bool isGrounded;
     private bool facingRight = true;
     private bool movementEnabled = true;
     public event Action OnGrounded;
@@ -71,11 +74,12 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void HandleMovement()
     {
-
-        if( _menuCanvasManager != null){
+        if (_menuCanvasManager != null)
+        {
             if (!movementEnabled || _menuCanvasManager._isSpectating)
             {
                 rb.velocity = new Vector2(0, rb.velocity.y);
+                _animator.SetTrigger("idle"); // Trigger "idle" animation
                 return;
             }
         }
@@ -94,11 +98,20 @@ public class PlayerMovementComponent : MonoBehaviour
 
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
-        if (moveInput > 0 && !facingRight)
+        if (Mathf.Abs(rb.velocity.x) > 0.01f)
+        {
+            _animator.SetTrigger("move"); 
+        }
+        else
+        {
+            _animator.SetTrigger("idle");
+        }
+
+        if (moveInput > 0 && facingRight)
         {
             Flip();
         }
-        else if (moveInput < 0 && facingRight)
+        else if (moveInput < 0 && !facingRight)
         {
             Flip();
         }
