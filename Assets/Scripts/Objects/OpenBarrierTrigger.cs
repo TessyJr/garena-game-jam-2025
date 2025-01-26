@@ -4,6 +4,7 @@ using System.Collections;
 public class OpenBarrierTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject _barrier;
+    [SerializeField] private GameObject _bottomBarrier;
     [SerializeField] private float _openDuration;
 
     [Header("Button Sprites")]
@@ -20,11 +21,12 @@ public class OpenBarrierTrigger : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
     private SpriteRenderer _barrierSpriteRenderer;
-
+    private SpriteRenderer _bottomBarrierSpriteRenderer;
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _barrierSpriteRenderer = _barrier.GetComponent<SpriteRenderer>();
+        _bottomBarrierSpriteRenderer = _bottomBarrier.GetComponent<SpriteRenderer>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -33,54 +35,45 @@ public class OpenBarrierTrigger : MonoBehaviour
         {
             if (_barrier.activeSelf == true)
             {
-                StartCoroutine(OpenBarrier());
+                _spriteRenderer.sprite = _buttonOn;
+
+                StartCoroutine(AnimateBarrierOpening(_barrierSpriteRenderer, _barrier));
+                StartCoroutine(AnimateBarrierClosing(_bottomBarrierSpriteRenderer, _bottomBarrier));
+
+                _spriteRenderer.sprite = _buttonOff;
+            }else{
+                _spriteRenderer.sprite = _buttonOn;
+                
+                StartCoroutine(AnimateBarrierOpening(_bottomBarrierSpriteRenderer, _bottomBarrier));
+                StartCoroutine(AnimateBarrierClosing(_barrierSpriteRenderer, _barrier));
+                
+                _spriteRenderer.sprite = _buttonOff;
             }
         }
     }
 
-    private IEnumerator OpenBarrier()
-    {
-        // Set the button sprite to 'on'
-        _spriteRenderer.sprite = _buttonOn;
 
-        // Animate the barrier opening
-        yield return AnimateBarrierOpening();
-
-        // Wait for the open duration
-        yield return new WaitForSeconds(_openDuration);
-
-        // Reactivate the barrier GameObject before closing animation
-        _barrier.SetActive(true);
-
-        // Animate the barrier closing
-        yield return AnimateBarrierClosing();
-
-        // Set the button sprite back to 'off'
-        _spriteRenderer.sprite = _buttonOff;
-    }
-
-    private IEnumerator AnimateBarrierOpening()
+    private IEnumerator AnimateBarrierOpening(SpriteRenderer spriteRenderer, GameObject barrierObject)
     {
         if(_barrierAudioSource != null) _barrierAudioSource.Play();
         Sprite[] openingSprites = { _barrier1, _barrier2, _barrier3, _barrier4, _barrier5 };
         foreach (var sprite in openingSprites)
         {
-            _barrierSpriteRenderer.sprite = sprite;
-            yield return new WaitForSeconds(0.05f); // Adjust for animation speed
+            spriteRenderer.sprite = sprite;
+            yield return new WaitForSeconds(0.05f);
         }
-
-        // Deactivate the barrier after it visually "opens"
-        _barrier.SetActive(false);
+        barrierObject.SetActive(false);
     }
 
-    private IEnumerator AnimateBarrierClosing()
+    private IEnumerator AnimateBarrierClosing(SpriteRenderer spriteRenderer, GameObject barrierObject)
     {
+        barrierObject.SetActive(true);
         if(_barrierAudioSource != null) _barrierAudioSource.Play();
         Sprite[] closingSprites = { _barrier5, _barrier4, _barrier3, _barrier2, _barrier1 };
         foreach (var sprite in closingSprites)
         {
-            _barrierSpriteRenderer.sprite = sprite;
-            yield return new WaitForSeconds(0.05f); // Adjust for animation speed
+            spriteRenderer.sprite = sprite;
+            yield return new WaitForSeconds(0.05f);
         }
     }
 }
