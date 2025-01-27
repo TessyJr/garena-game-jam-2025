@@ -40,14 +40,16 @@ public class OpenBarrierTrigger : MonoBehaviour
                 StartCoroutine(AnimateBarrierOpening(_barrierSpriteRenderer, _barrier));
                 StartCoroutine(AnimateBarrierClosing(_bottomBarrierSpriteRenderer, _bottomBarrier));
 
-                _spriteRenderer.sprite = _buttonOff;
-            }else{
+                StartCoroutine(SetButtonOffAfterDelay());
+            }
+            else
+            {
                 _spriteRenderer.sprite = _buttonOn;
-                
+
                 StartCoroutine(AnimateBarrierOpening(_bottomBarrierSpriteRenderer, _bottomBarrier));
                 StartCoroutine(AnimateBarrierClosing(_barrierSpriteRenderer, _barrier));
-                
-                _spriteRenderer.sprite = _buttonOff;
+
+                StartCoroutine(SetButtonOffAfterDelay());
             }
         }
     }
@@ -76,4 +78,10 @@ public class OpenBarrierTrigger : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
     }
+    private IEnumerator SetButtonOffAfterDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        _spriteRenderer.sprite = _buttonOff;
+    }
+
 }
