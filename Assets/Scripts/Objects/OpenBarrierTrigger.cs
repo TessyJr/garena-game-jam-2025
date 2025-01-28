@@ -5,7 +5,6 @@ public class OpenBarrierTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject _barrier;
     [SerializeField] private GameObject _bottomBarrier;
-    [SerializeField] private float _openDuration;
 
     [Header("Button Sprites")]
     [SerializeField] private Sprite _buttonOn;
@@ -21,67 +20,121 @@ public class OpenBarrierTrigger : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
     private SpriteRenderer _barrierSpriteRenderer;
-    private SpriteRenderer _bottomBarrierSpriteRenderer;
+
+    private Coroutine _currentAnimationCoroutine;
+
+    private int _triggerCount = 0; // Tracks the number of objects in the trigger zone
+    private bool _isAnimating = false;
+    private bool _shouldOpen = true;
+
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _barrierSpriteRenderer = _barrier.GetComponent<SpriteRenderer>();
-        _bottomBarrierSpriteRenderer = _bottomBarrier.GetComponent<SpriteRenderer>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("ButtonObject"))
         {
-            if (_barrier.activeSelf == true)
+            _triggerCount++; // Increment the count when a valid object enters the trigger zone
+            _shouldOpen = true;
+
+            if (!_isAnimating)
             {
-                _spriteRenderer.sprite = _buttonOn;
-
-                StartCoroutine(AnimateBarrierOpening(_barrierSpriteRenderer, _barrier));
-                StartCoroutine(AnimateBarrierClosing(_bottomBarrierSpriteRenderer, _bottomBarrier));
-
-                StartCoroutine(SetButtonOffAfterDelay());
-            }
-            else
-            {
-                _spriteRenderer.sprite = _buttonOn;
-
-                StartCoroutine(AnimateBarrierOpening(_bottomBarrierSpriteRenderer, _bottomBarrier));
-                StartCoroutine(AnimateBarrierClosing(_barrierSpriteRenderer, _barrier));
-
-                StartCoroutine(SetButtonOffAfterDelay());
+                StartOpeningBarrier();
             }
         }
     }
 
-
-    private IEnumerator AnimateBarrierOpening(SpriteRenderer spriteRenderer, GameObject barrierObject)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if(_barrierAudioSource != null) _barrierAudioSource.Play();
+        if (other.CompareTag("Player") || other.CompareTag("ButtonObject"))
+        {
+            _triggerCount--; // Decrement the count when a valid object exits the trigger zone
+
+            if (_triggerCount <= 0)
+            {
+                _triggerCount = 0; // Ensure the count doesn't go negative
+                _shouldOpen = false;
+
+                if (!_isAnimating)
+                {
+                    StartClosingBarrier();
+                }
+            }
+        }
+    }
+
+    private void StartOpeningBarrier()
+    {
+        if (!gameObject.activeInHierarchy) return; // Ensure the GameObject is active
+        if (_currentAnimationCoroutine != null)
+        {
+            StopCoroutine(_currentAnimationCoroutine);
+        }
+
+        _currentAnimationCoroutine = StartCoroutine(AnimateBarrierOpening());
+    }
+
+    private void StartClosingBarrier()
+    {
+        if (!gameObject.activeInHierarchy) return; // Ensure the GameObject is active
+        if (_currentAnimationCoroutine != null)
+        {
+            StopCoroutine(_currentAnimationCoroutine);
+        }
+
+        _currentAnimationCoroutine = StartCoroutine(AnimateBarrierClosing());
+    }
+
+    private IEnumerator AnimateBarrierOpening()
+    {
+        _isAnimating = true;
+        _spriteRenderer.sprite = _buttonOn;
+
+        if (_barrierAudioSource != null) _barrierAudioSource.Play();
         Sprite[] openingSprites = { _barrier1, _barrier2, _barrier3, _barrier4, _barrier5 };
+
         foreach (var sprite in openingSprites)
         {
-            spriteRenderer.sprite = sprite;
+            _barrierSpriteRenderer.sprite = sprite;
             yield return new WaitForSeconds(0.05f);
+
+            // If `_shouldOpen` changes to false mid-animation, stop and close the barrier
+            if (!_shouldOpen)
+            {
+                StartClosingBarrier();
+                yield break;
+            }
         }
-        barrierObject.SetActive(false);
+
+        _barrier.SetActive(false);
+        _isAnimating = false;
     }
 
-    private IEnumerator AnimateBarrierClosing(SpriteRenderer spriteRenderer, GameObject barrierObject)
+    private IEnumerator AnimateBarrierClosing()
     {
-        barrierObject.SetActive(true);
-        if(_barrierAudioSource != null) _barrierAudioSource.Play();
+        _isAnimating = true;
+        _barrier.SetActive(true);
+
+        if (_barrierAudioSource != null) _barrierAudioSource.Play();
         Sprite[] closingSprites = { _barrier5, _barrier4, _barrier3, _barrier2, _barrier1 };
+
         foreach (var sprite in closingSprites)
         {
-            spriteRenderer.sprite = sprite;
+            _barrierSpriteRenderer.sprite = sprite;
             yield return new WaitForSeconds(0.05f);
-        }
-    }
-    private IEnumerator SetButtonOffAfterDelay()
-    {
-        yield return new WaitForSeconds(0.2f);
-        _spriteRenderer.sprite = _buttonOff;
-    }
 
+            // If `_shouldOpen` changes to true mid-animation, stop and open the barrier
+            if (_shouldOpen)
+            {
+                StartOpeningBarrier();
+                yield break;
+            }
+        }
+
+        _spriteRenderer.sprite = _buttonOff; // Reset button sprite to "off" after closing
+        _isAnimating = false;
+    }
 }
