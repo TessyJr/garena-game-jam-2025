@@ -16,6 +16,7 @@ public class MenuCanvasManager : MonoBehaviour
     [SerializeField] private float cameraMoveSpeed = 8f;
     [SerializeField] private float edgeThreshold = 64f; // Distance from the edge of the screen to trigger movement
     public bool _isSpectating = false;
+    [SerializeField] private GameObject _spectatorModeText;
 
     [Header("Home Settings")]
     [SerializeField] private Button _homeButton;
@@ -65,11 +66,17 @@ public class MenuCanvasManager : MonoBehaviour
 
         if (_isSpectating)
         {
+            _spectatorModeText.SetActive(true);
+            ChangeButtonColor(_spectateButton, new Color(0.81f, 0.53f, 0.25f)); // Orange (Hex: CF883F)
+
             // Detach the camera from the player
             _cinemachineCamera.Follow = null;
         }
         else
         {
+            _spectatorModeText.SetActive(false);
+            ChangeButtonColor(_spectateButton, Color.white); // White
+
             // Reattach the camera to the player
             _cinemachineCamera.Follow = _player.transform;
         }
@@ -109,4 +116,12 @@ public class MenuCanvasManager : MonoBehaviour
         // Clear the currently selected object in the EventSystem
         EventSystem.current.SetSelectedGameObject(null);
     }
+
+    void ChangeButtonColor(Button button, Color targetColor)
+    {
+        var colors = button.colors;
+        colors.normalColor = targetColor; // Set the normal color
+        button.colors = colors;
+    }
+
 }
