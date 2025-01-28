@@ -4,7 +4,6 @@ using System.Collections;
 public class OpenBarrierTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject _barrier;
-    [SerializeField] private GameObject _bottomBarrier;
 
     [Header("Button Sprites")]
     [SerializeField] private Sprite _buttonOn;
