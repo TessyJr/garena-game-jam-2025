@@ -33498,14 +33498,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4499413308448839837, guid: 5fd24d51c2b124471b593474483df936, type: 3}
-      propertyPath: m_Size.x
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4499413308448839837, guid: 5fd24d51c2b124471b593474483df936, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 4908828936833875095, guid: 5fd24d51c2b124471b593474483df936, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
@@ -33604,7 +33596,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _door: {fileID: 1417921383}
+  _doorCollider: {fileID: 1417921387}
   _unlockedSound: {fileID: 1417921381}
+--- !u!61 &1417921387 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1969227285934888587, guid: 5fd24d51c2b124471b593474483df936, type: 3}
+  m_PrefabInstance: {fileID: 1417921380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1447512109
 GameObject:
   m_ObjectHideFlags: 0
