@@ -787,7 +787,7 @@ Tilemap:
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 145c59e02bdee4d12b98bf15f8cc5f7d, type: 2}
+    m_Data: {fileID: 11400000, guid: 05ce7b3bdb60a432fb232232c2ba8e2c, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 4748b7f154c9d4c7f94e9dcc66c16993, type: 2}
   - m_RefCount: 1
@@ -826,7 +826,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: a6cde6ea036074165ad7d73b0375dcb0, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: db2eb38ff581a4cfa96b937c7a552519, type: 3}
+    m_Data: {fileID: 21300000, guid: f67429e052a6e4ad0bbc55ee8f0ff6fb, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 0928dcbdad0864c7ea34f40dcaf24a25, type: 3}
   - m_RefCount: 1
@@ -1366,7 +1366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6862207704758598281, guid: 5fd24d51c2b124471b593474483df936, type: 3}
       propertyPath: _sceneName
-      value: Level7Scene
+      value: Level6Scene
       objectReference: {fileID: 0}
     - target: {fileID: 8702101486686979216, guid: 5fd24d51c2b124471b593474483df936, type: 3}
       propertyPath: m_Name
