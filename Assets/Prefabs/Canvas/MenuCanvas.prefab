@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01931f8ea33b4395a59993594eca881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blinkInterval: 0.8
+  blinkInterval: 1
   minOpacity: 0.4
   maxOpacity: 1
 --- !u!1 &3126456992224365721
