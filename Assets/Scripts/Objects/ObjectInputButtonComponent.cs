@@ -4,15 +4,15 @@ public class ObjectInputButtonComponent : MonoBehaviour
 {
     [SerializeField] private KeyCode _keyCode;
 
-    [Header("Overlap Settings")]
+    [Header("Player Overlap Settings")]
+    [SerializeField] private Transform _playerCheck;
     [SerializeField] private LayerMask _overlapLayer;
-    [SerializeField] private float _overlapRadius = 0.2f;
+    [SerializeField] private float _playerCheckRadius = 0.2f;
 
     [Header("Ground Check Settings")]
-    [SerializeField] private Transform _groundCheck;  // Position to check if on the ground
-    [SerializeField] private float _groundCheckRadius = 0.2f;  // Radius for ground check
-    [SerializeField] private LayerMask _groundLayer;  // Ground layer to check against
-
+    [SerializeField] private Transform _groundCheck;
+    [SerializeField] private float _groundCheckRadius = 0.2f;
+    [SerializeField] private LayerMask _groundLayer;
     [Header("Sprite Settings")]
     [SerializeField] private Sprite _wKeySprite;
     [SerializeField] private Sprite _aKeySprite;
@@ -34,11 +34,11 @@ public class ObjectInputButtonComponent : MonoBehaviour
 
     void Update()
     {
-        Collider2D overlap = Physics2D.OverlapCircle(transform.position, _overlapRadius, _overlapLayer);
+        Collider2D overlapWithPlayer = Physics2D.OverlapCircle(transform.position, _playerCheckRadius, _overlapLayer);
 
         bool isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
 
-        if (overlap != null && isGrounded)
+        if (overlapWithPlayer != null && isGrounded)
         {
             if (!GameInputManager.Instance.Is2ButtonsActive())
             {
@@ -51,13 +51,16 @@ public class ObjectInputButtonComponent : MonoBehaviour
     // Optional: Visualize the overlap radius and ground check in the editor
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, _overlapRadius);
-
         if (_groundCheck != null)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(_groundCheck.position, _groundCheckRadius);
+        }
+
+        if (_playerCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(_playerCheck.position, _playerCheckRadius);
         }
     }
 
