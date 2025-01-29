@@ -5,9 +5,10 @@ using System;
 public class PlayerMovementComponent : MonoBehaviour
 {
     [Header("Menu Canvas Settings")]
-    [SerializeField] MenuCanvasManager _menuCanvasManager;
+    [SerializeField] private MenuCanvasManager _menuCanvasManager;
 
     [Header("Movement Settings")]
+    [SerializeField] private Direction _direction = Direction.Left;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float climbSpeed = 4f;
@@ -17,25 +18,39 @@ public class PlayerMovementComponent : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Pipe Check Settings")]
+    [SerializeField] private Transform pipeCheck;
+    [SerializeField] private float pipeCheckRadius = 0.1f;
+    [SerializeField] private LayerMask pipeLayer;
+    [SerializeField] private PipeComponent currentPipe;
+
     [Header("Particle Settings")]
     [SerializeField] private ParticleSystem _dust;
 
     [Header("Audio Settings")]
     [SerializeField] private AudioSource _fallSound;
     [SerializeField] private AudioSource _stairSound;
-
-    [Header("Animator Settings")]
-    [SerializeField] private Animator _animator;
+    [SerializeField] private AudioSource _teleportSound;
 
     private Rigidbody2D rb;
-    [SerializeField] private bool isGrounded;
-    private bool facingRight = true;
+    private PlayerStateComponent _playerState;
+
     private bool movementEnabled = true;
-    private bool isOnLadder = false;
+
+    public bool isGrounded;
+    public bool _isJumping;
+    public bool _isClimbing;
+    public bool _isOnLadder = false;
+
+    private float _horizontalMoveInput = 0f;
+    private float _verticalMoveInput = 0f;
+
     public event Action OnGrounded;
 
     private void Awake()
     {
+        _playerState = GetComponent<PlayerStateComponent>();
+        rb = GetComponent<Rigidbody2D>();
         OnGrounded += PlayFallSound;
     }
 
@@ -44,128 +59,199 @@ public class PlayerMovementComponent : MonoBehaviour
         OnGrounded -= PlayFallSound;
     }
 
-    void Start()
+    private void Update()
     {
-        rb = GetComponent<Rigidbody2D>();
-    }
+        CheckGroundedStatus();
 
-    void Update()
-    {
-        // Ground check logic
-        bool wasGrounded = isGrounded;
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-        // Trigger the event if isGrounded changes to true
-        if (!wasGrounded && isGrounded)
-        {
-            OnGrounded?.Invoke();
-        }
-
+        HandleAnimation();
         HandleMovement();
         HandleJumping();
         HandleClimbing();
+        HandleTeleport();
     }
 
-    private void PlayFallSound()
+
+    private void CheckGroundedStatus()
     {
-        if (_fallSound != null)
+        bool wasGrounded = isGrounded;
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        if (!wasGrounded && isGrounded)
         {
-            _fallSound.Play();
+            if (_isJumping)
+            {
+                _isJumping = false;
+            }
+
+            if (_isClimbing)
+            {
+                _isClimbing = false;
+                _stairSound.Stop();
+            }
+
+            OnGrounded?.Invoke();
+        }
+    }
+
+    private void HandleAnimation()
+    {
+        if (_horizontalMoveInput != 0)
+        {
+            if (_isClimbing)
+            {
+                _playerState.SetState(PlayerState.Climbing);
+            }
+            else if (_isJumping)
+            {
+                _playerState.SetState(PlayerState.Jumping);
+            }
+            else
+            {
+                _playerState.SetState(PlayerState.Walking);
+            }
+        }
+        else
+        {
+            if (_isClimbing)
+            {
+                _playerState.SetState(PlayerState.Climbing);
+            }
+            else if (_isJumping)
+            {
+                _playerState.SetState(PlayerState.Jumping);
+            }
+            else
+            {
+                _playerState.SetState(PlayerState.Idle);
+            }
         }
     }
 
     private void HandleMovement()
     {
-        if (_menuCanvasManager != null)
+        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating))
         {
-            if (!movementEnabled || _menuCanvasManager._isSpectating)
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y);
-                if(!isOnLadder)
-                _animator.SetTrigger("idle"); // Trigger "idle" animation
-                return;
-            }
+            return;
         }
 
-        float moveInput = 0f;
-
-        if (GameInputManager.Instance.buttonA && Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && GameInputManager.Instance.buttonA)
         {
-            moveInput = -1f;
+            _horizontalMoveInput = -1f;
+            if (_direction == Direction.Right) Flip();
+            _direction = Direction.Left;
+        }
+        else if (Input.GetKey(KeyCode.D) && GameInputManager.Instance.buttonD)
+        {
+            _horizontalMoveInput = 1f;
+            if (_direction == Direction.Left) Flip();
+            _direction = Direction.Right;
+        }
+        else
+        {
+            _horizontalMoveInput = 0f;
         }
 
-        if (GameInputManager.Instance.buttonD && Input.GetKey(KeyCode.D))
-        {
-            moveInput = 1f;
-        }
-
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-
-        
-        if(!isOnLadder)
-        {
-            if (Mathf.Abs(rb.velocity.x) > 0.01f) _animator.SetTrigger("move"); 
-            if(Mathf.Abs(rb.velocity.x) > 0.01f && Mathf.Abs(rb.velocity.x) > 0.01f)_animator.SetTrigger("idle");
-        }
-
-        if (moveInput > 0 && facingRight)
-        {
-            Flip();
-        }
-        else if (moveInput < 0 && !facingRight)
-        {
-            Flip();
-        }
+        rb.velocity = new Vector2(_horizontalMoveInput * moveSpeed, rb.velocity.y);
     }
 
     private void HandleJumping()
     {
-        if (_menuCanvasManager == null || !GameInputManager.Instance.buttonSpace || !Input.GetKeyDown(KeyCode.Space) || !isGrounded || !movementEnabled || _menuCanvasManager._isSpectating)
+        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating) || _isClimbing || !isGrounded)
         {
             return;
         }
-        _dust.Play();
-        _animator.SetTrigger("jump");
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        _animator.SetTrigger("idle");
-    }
 
+        if (Input.GetKeyDown(KeyCode.Space) && GameInputManager.Instance.buttonSPACE)
+        {
+            _isJumping = true;
+            _dust.Play();
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+    }
 
     private void HandleClimbing()
     {
-        float moveInput = 0f;
-        isOnLadder = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, LayerMask.GetMask("Ladder"));
-
-        if (isOnLadder)
+        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating))
         {
-            if(!isGrounded)_animator.SetTrigger("climb");
-            if (GameInputManager.Instance.buttonW && Input.GetKey(KeyCode.W) && !_menuCanvasManager._isSpectating)
+            return;
+        }
+
+        _isOnLadder = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, LayerMask.GetMask("Ladder"));
+
+        if (_isOnLadder)
+        {
+            if (Input.GetKey(KeyCode.W) && GameInputManager.Instance.buttonW)
             {
-                
-                moveInput = 1f;
+                _isClimbing = true;
+                _verticalMoveInput = 1f;
             }
-            else if (GameInputManager.Instance.buttonS && Input.GetKey(KeyCode.S) && !_menuCanvasManager._isSpectating)
+            else
             {
-                moveInput = -1f;
+                if (_isClimbing)
+                {
+                    _verticalMoveInput = -0.5f;
+                }
             }
 
-            rb.velocity = new Vector2(rb.velocity.x, moveInput * climbSpeed);
-            if (!_stairSound.isPlaying && !isGrounded) // Prevent restarting the sound
+            if (_isClimbing)
             {
-                _stairSound.Play();
+                rb.velocity = new Vector2(rb.velocity.x, _verticalMoveInput * climbSpeed);
+
+                if (Mathf.Abs(rb.velocity.y) > 0.1f && !_stairSound.isPlaying)
+                {
+                    _stairSound.Play();
+                }
+                else if (Mathf.Abs(rb.velocity.y) < 0.1f && _stairSound.isPlaying)
+                {
+                    _stairSound.Stop();
+                }
             }
         }
         else
         {
-            _stairSound.Stop(); // Ensure the sound stops when not on a ladder
-            _animator.SetTrigger("idle");
+            _isClimbing = false;
+            _verticalMoveInput = 0f;
+
+            if (_stairSound.isPlaying)
+            {
+                _stairSound.Stop();
+            }
+
+            return;
         }
     }
 
+    private void HandleTeleport()
+    {
+        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating) || _isClimbing || !isGrounded)
+        {
+            return;
+        }
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundCheckRadius, pipeLayer);
+
+        if (colliders.Length > 0)
+        {
+            currentPipe = colliders[0].gameObject.GetComponentInParent<PipeComponent>();
+        }
+        else
+        {
+            currentPipe = null;
+        }
+
+        if (Input.GetKeyDown(KeyCode.S) && GameInputManager.Instance.buttonS)
+        {
+            _teleportSound.Play();
+            if (currentPipe != null && currentPipe.LinkedPipe != null)
+            {
+                transform.position = currentPipe.LinkedPipe.GetChild(0).position;
+            }
+        }
+
+    }
 
     private void Flip()
     {
-        facingRight = !facingRight;
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
@@ -176,6 +262,11 @@ public class PlayerMovementComponent : MonoBehaviour
         }
     }
 
+    private void PlayFallSound()
+    {
+        _fallSound?.Play();
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (groundCheck != null)
@@ -183,16 +274,19 @@ public class PlayerMovementComponent : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
+
+        if (pipeCheck != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(pipeCheck.position, pipeCheckRadius);
+        }
     }
 
-    public bool GetFacingRight() => facingRight;
+    public Direction GetDirection() => _direction;
 
     public void SetMovementEnabled(bool enabled)
     {
         movementEnabled = enabled;
-        if (!enabled)
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
+        if (!enabled) rb.velocity = new Vector2(0, rb.velocity.y);
     }
 }

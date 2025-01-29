@@ -555,9 +555,9 @@ GameObject:
   - component: {fileID: 2204511316248913979}
   - component: {fileID: 2776769457356721795}
   - component: {fileID: 2966392060896346482}
+  - component: {fileID: 1132313819062283977}
   - component: {fileID: 3507154394456500247}
   - component: {fileID: 8232351789992571122}
-  - component: {fileID: 874291069502948233}
   - component: {fileID: 7140556604678340866}
   - component: {fileID: 6558706990788452351}
   m_Layer: 3
@@ -716,6 +716,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.45}
   m_EdgeRadius: 0
+--- !u!114 &1132313819062283977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4890168213959070020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d39197fa04249198c1a0291403cd1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerState: 0
+  _animator: {fileID: 6558706990788452351}
 --- !u!114 &3507154394456500247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -729,6 +743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuCanvasManager: {fileID: 0}
+  _direction: 0
   moveSpeed: 8
   jumpForce: 16
   climbSpeed: 4
@@ -737,11 +752,20 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  pipeCheck: {fileID: 1070495546106370040}
+  pipeCheckRadius: 0.1
+  pipeLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  currentPipe: {fileID: 0}
   _dust: {fileID: 1163646044396965737}
   _fallSound: {fileID: 70497996693637677}
   _stairSound: {fileID: 4709640897889669127}
-  _animator: {fileID: 6558706990788452351}
+  _teleportSound: {fileID: 2280495461321258852}
   isGrounded: 0
+  _isJumping: 0
+  _isClimbing: 0
+  _isOnLadder: 0
 --- !u!114 &8232351789992571122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,26 +782,6 @@ MonoBehaviour:
   _objectToSpawn: {fileID: 247254585816463233, guid: 3bb850d049b564c3ea98dae60c2ee336, type: 3}
   _spawnForce: 4
   _ejectSound: {fileID: 5715304762044148327}
---- !u!114 &874291069502948233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4890168213959070020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f68647f2140b343fdb358305c000e097, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _menuCanvasManager: {fileID: 0}
-  groundCheck: {fileID: 1070495546106370040}
-  groundCheckRadius: 0.1
-  pipeLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  currentPipe: {fileID: 0}
-  _teleportSound: {fileID: 2280495461321258852}
 --- !u!114 &7140556604678340866
 MonoBehaviour:
   m_ObjectHideFlags: 0

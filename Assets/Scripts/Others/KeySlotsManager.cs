@@ -51,7 +51,7 @@ public class KeySlotsManager : MonoBehaviour
         if (_inputManager.buttonA) activeButtons.Add(_aKeySprite);
         if (_inputManager.buttonS) activeButtons.Add(_sKeySprite);
         if (_inputManager.buttonD) activeButtons.Add(_dKeySprite);
-        if (_inputManager.buttonSpace) activeButtons.Add(_spaceKeySprite);
+        if (_inputManager.buttonSPACE) activeButtons.Add(_spaceKeySprite);
 
         return activeButtons;
     }

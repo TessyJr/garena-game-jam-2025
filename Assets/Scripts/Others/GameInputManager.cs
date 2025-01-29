@@ -9,7 +9,7 @@ public class GameInputManager : MonoBehaviour
     public bool buttonD = false;
     public bool buttonW = false;
     public bool buttonS = false;
-    public bool buttonSpace = false;
+    public bool buttonSPACE = false;
 
     private int activeButtonCount = 0;
     private AudioSource audioSource;
@@ -24,7 +24,7 @@ public class GameInputManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        audioSource = GetComponent<AudioSource>(); 
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -42,8 +42,10 @@ public class GameInputManager : MonoBehaviour
             {
                 Debug.LogWarning("Cannot activate more than two buttons at once.");
                 return; // Don't activate more than two buttons
-            }else{
-                audioSource.Play(); 
+            }
+            else
+            {
+                audioSource.Play();
             }
         }
         switch (button.ToUpper())
@@ -61,7 +63,7 @@ public class GameInputManager : MonoBehaviour
                 buttonS = state;
                 break;
             case "SPACE":
-                buttonSpace = state;
+                buttonSPACE = state;
                 break;
         }
 
@@ -78,7 +80,7 @@ public class GameInputManager : MonoBehaviour
             "D" => buttonD,
             "W" => buttonW,
             "S" => buttonS,
-            "SPACE" => buttonSpace,
+            "SPACE" => buttonSPACE,
             _ => false,
         };
     }
@@ -91,7 +93,7 @@ public class GameInputManager : MonoBehaviour
         if (buttonD) activeButtonCount++;
         if (buttonW) activeButtonCount++;
         if (buttonS) activeButtonCount++;
-        if (buttonSpace) activeButtonCount++;
+        if (buttonSPACE) activeButtonCount++;
     }
 
     public bool Is2ButtonsActive()
