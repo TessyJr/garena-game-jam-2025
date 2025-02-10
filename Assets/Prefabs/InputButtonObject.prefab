@@ -179,9 +179,9 @@ MonoBehaviour:
   _overlapLayer:
     serializedVersion: 2
     m_Bits: 8
-  _playerCheckRadius: 0.2
+  _playerCheckRadius: 0.25
   _groundCheck: {fileID: 9070758863925533671}
-  _groundCheckRadius: 0.5
+  _groundCheckRadius: 0.53
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64

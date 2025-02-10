@@ -565,6 +565,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6269159354188521074, guid: 3bb850d049b564c3ea98dae60c2ee336, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6743299685616200545, guid: 3bb850d049b564c3ea98dae60c2ee336, type: 3}
       propertyPath: ShapeModule.radius.value
       value: 0.3
@@ -5816,7 +5820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8599769910690828608, guid: b3d26f2f072f6434089517c800b7c9f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.1139889
+      value: -2.1104908
       objectReference: {fileID: 0}
     - target: {fileID: 8599769910690828608, guid: b3d26f2f072f6434089517c800b7c9f2, type: 3}
       propertyPath: m_LocalPosition.y
