@@ -4,12 +4,14 @@ using UnityEngine.UI;
 
 public class LevelButtonComponent : MonoBehaviour
 {
-    [SerializeField] private string sceneName; // The name of the scene to load
-    [SerializeField] private Button button;   // Reference to the button component
+    [SerializeField] private string sceneName;
+    [SerializeField] private Button button;
+    [SerializeField] private PlayerMovementComponent _playerMovement;
+    private float _movementAmount = 16f;
+    private float _movementTime = 2f;
 
     private void Start()
     {
-        // Ensure the button is assigned and subscribe to its click event
         if (button != null)
         {
             button.onClick.AddListener(ChangeScene);
@@ -21,6 +23,15 @@ public class LevelButtonComponent : MonoBehaviour
     }
 
     private void ChangeScene()
+    {
+        // Start the auto-move routine (it can be a coroutine).
+        StartCoroutine(_playerMovement.AutoMoveLeft(_movementAmount, _movementTime));
+        
+        // Schedule the scene load after _movementTime seconds without using a coroutine.
+        Invoke(nameof(LoadSceneAfterMovement), _movementTime);
+    }
+
+    private void LoadSceneAfterMovement()
     {
         if (!string.IsNullOrEmpty(sceneName))
         {
@@ -34,7 +45,6 @@ public class LevelButtonComponent : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Unsubscribe from the button click event to prevent potential memory leaks
         if (button != null)
         {
             button.onClick.RemoveListener(ChangeScene);

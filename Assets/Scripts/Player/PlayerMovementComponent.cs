@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovementComponent : MonoBehaviour
@@ -36,6 +37,8 @@ public class PlayerMovementComponent : MonoBehaviour
     private PlayerStateComponent _playerState;
 
     private bool movementEnabled = true;
+
+    private bool autoMoving = false;
 
     public bool isGrounded;
     public bool _isJumping;
@@ -129,7 +132,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating))
+        if (autoMoving || !movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating))
         {
             return;
         }
@@ -288,5 +291,24 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         movementEnabled = enabled;
         if (!enabled) rb.velocity = new Vector2(0, rb.velocity.y);
+    }
+
+    public IEnumerator AutoMoveLeft(float autoMoveDistance, float duration)
+    {
+        autoMoving = true; 
+        Vector2 startPosition = rb.position;
+        Vector2 targetPosition = rb.position + Vector2.left * autoMoveDistance;
+        float elapsed = 0f;
+        _horizontalMoveInput = -1f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            rb.MovePosition(Vector2.Lerp(startPosition, targetPosition, elapsed / duration));
+            yield return null;
+        }
+        rb.MovePosition(targetPosition);
+        _horizontalMoveInput = 0f;
+        autoMoving = false;
     }
 }
