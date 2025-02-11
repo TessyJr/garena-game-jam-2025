@@ -8931,7 +8931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7918409518746234054, guid: 3b20e57ba83fe4b50815ec511509d365, type: 3}
       propertyPath: m_Name
-      value: GameInputManager (1)
+      value: GameInputManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14937,20 +14937,20 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 586559918}
   - {fileID: 1475866332}
   - {fileID: 1582348182}
-  - {fileID: 1719894351}
-  - {fileID: 41755485}
-  - {fileID: 575857339}
-  - {fileID: 1523343864}
   - {fileID: 7950744681417111359}
-  - {fileID: 276530039}
+  - {fileID: 586559918}
   - {fileID: 501742343}
   - {fileID: 1455560192}
   - {fileID: 1585498472}
+  - {fileID: 276530039}
   - {fileID: 196243428}
   - {fileID: 707294056}
   - {fileID: 834741198}
   - {fileID: 1714353485}
   - {fileID: 404863561}
+  - {fileID: 1719894351}
+  - {fileID: 575857339}
+  - {fileID: 1523343864}
+  - {fileID: 41755485}
