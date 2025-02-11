@@ -738,8 +738,8 @@ MonoBehaviour:
   buttonA: 0
   buttonD: 1
   buttonW: 0
-  buttonS: 0
-  buttonSPACE: 1
+  buttonS: 1
+  buttonSPACE: 0
 --- !u!4 &467785052
 Transform:
   m_ObjectHideFlags: 0
