@@ -16,7 +16,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
     [Header("Ground Check Settings")]
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private Vector2 groundCheckSize;
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Pipe Check Settings")]
@@ -77,7 +77,8 @@ public class PlayerMovementComponent : MonoBehaviour
     private void CheckGroundedStatus()
     {
         bool wasGrounded = isGrounded;
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
 
         if (!wasGrounded && isGrounded)
         {
@@ -179,7 +180,7 @@ public class PlayerMovementComponent : MonoBehaviour
             return;
         }
 
-        _isOnLadder = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, LayerMask.GetMask("Ladder"));
+        _isOnLadder = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, LayerMask.GetMask("Ladder"));
 
         if (_isOnLadder)
         {
@@ -231,7 +232,7 @@ public class PlayerMovementComponent : MonoBehaviour
             return;
         }
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundCheckRadius, pipeLayer);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheck.position, groundCheckSize, pipeLayer);
 
         if (colliders.Length > 0)
         {
@@ -274,8 +275,8 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         if (groundCheck != null)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
         }
 
         if (pipeCheck != null)
@@ -295,7 +296,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
     public IEnumerator AutoMoveLeft(float autoMoveDistance, float duration)
     {
-        autoMoving = true; 
+        autoMoving = true;
         Vector2 startPosition = rb.position;
         Vector2 targetPosition = rb.position + Vector2.left * autoMoveDistance;
         float elapsed = 0f;

@@ -13,12 +13,10 @@ public class MovePlayerOnce : MonoBehaviour
 
     private void Update()
     {
-        if (!_hasMoved && Input.anyKeyDown)
+        if (!_hasMoved && Input.GetMouseButtonDown(0)) // Detects left mouse click
         {
             StartCoroutine(_playerMovement.AutoMoveLeft(_movementAmount, 0.3f));
             _hasMoved = true;
         }
     }
 }
-
-
