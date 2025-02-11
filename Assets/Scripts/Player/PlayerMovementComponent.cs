@@ -245,9 +245,9 @@ public class PlayerMovementComponent : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S) && GameInputManager.Instance.buttonS)
         {
-            _teleportSound.Play();
             if (currentPipe != null && currentPipe.LinkedPipe != null)
             {
+                _teleportSound.Play();
                 transform.position = currentPipe.LinkedPipe.GetChild(0).position;
             }
         }
