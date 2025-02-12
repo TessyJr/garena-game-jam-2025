@@ -17,12 +17,14 @@ public class PlayerMovementComponent : MonoBehaviour
     [Header("Ground Check Settings")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Vector2 groundCheckSize;
-    [SerializeField] private LayerMask groundLayer;
+
+    [Header("Ladder Check Settings")]
+    [SerializeField] private Transform ladderCheck;
+    [SerializeField] private float ladderCheckRadius = 0.15f;
 
     [Header("Pipe Check Settings")]
     [SerializeField] private Transform pipeCheck;
-    [SerializeField] private float pipeCheckRadius = 0.1f;
-    [SerializeField] private LayerMask pipeLayer;
+    [SerializeField] private float pipeCheckRadius = 0.15f;
     [SerializeField] private PipeComponent currentPipe;
 
     [Header("Particle Settings")]
@@ -40,10 +42,11 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private bool autoMoving = false;
 
-    public bool isGrounded;
+    public bool _isGrounded;
     public bool _isJumping;
     public bool _isClimbing;
-    public bool _isOnLadder = false;
+    public bool _isOnLadder;
+    public bool _isOnPipe;
 
     private float _horizontalMoveInput = 0f;
     private float _verticalMoveInput = 0f;
@@ -76,11 +79,11 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void CheckGroundedStatus()
     {
-        bool wasGrounded = isGrounded;
+        bool wasGrounded = _isGrounded;
 
-        isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
+        _isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, LayerMask.GetMask("Ground"));
 
-        if (!wasGrounded && isGrounded)
+        if (!wasGrounded && _isGrounded)
         {
             if (_isJumping)
             {
@@ -160,7 +163,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void HandleJumping()
     {
-        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating) || _isClimbing || !isGrounded)
+        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating) || _isClimbing || !_isGrounded)
         {
             return;
         }
@@ -180,7 +183,7 @@ public class PlayerMovementComponent : MonoBehaviour
             return;
         }
 
-        _isOnLadder = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, LayerMask.GetMask("Ladder"));
+        _isOnLadder = Physics2D.OverlapCircle(ladderCheck.position, ladderCheckRadius, LayerMask.GetMask("Ladder"));
 
         if (_isOnLadder)
         {
@@ -227,31 +230,27 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void HandleTeleport()
     {
-        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating) || _isClimbing || !isGrounded)
+        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating) || _isClimbing || !_isGrounded)
         {
             return;
         }
 
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheck.position, groundCheckSize, pipeLayer);
+        _isOnPipe = Physics2D.OverlapCircle(pipeCheck.position, pipeCheckRadius, LayerMask.GetMask("Pipe"));
 
-        if (colliders.Length > 0)
+        if (_isOnPipe)
         {
-            currentPipe = colliders[0].gameObject.GetComponentInParent<PipeComponent>();
-        }
-        else
-        {
-            currentPipe = null;
-        }
+            Collider2D pipeCollider = Physics2D.OverlapCircle(pipeCheck.position, pipeCheckRadius, LayerMask.GetMask("Pipe"));
+            currentPipe = pipeCollider.gameObject.GetComponentInParent<PipeComponent>();
 
-        if (Input.GetKeyDown(KeyCode.S) && GameInputManager.Instance.buttonS)
-        {
-            if (currentPipe != null && currentPipe.LinkedPipe != null)
+            if (Input.GetKeyDown(KeyCode.S) && GameInputManager.Instance.buttonS)
             {
-                _teleportSound.Play();
-                transform.position = currentPipe.LinkedPipe.GetChild(0).position;
+                if (currentPipe != null && currentPipe.LinkedPipe != null)
+                {
+                    _teleportSound.Play();
+                    transform.position = currentPipe.LinkedPipe.GetChild(0).position;
+                }
             }
         }
-
     }
 
     private void Flip()
@@ -260,7 +259,7 @@ public class PlayerMovementComponent : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
 
-        if (isGrounded)
+        if (_isGrounded)
         {
             _dust.Play();
         }
@@ -277,6 +276,12 @@ public class PlayerMovementComponent : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+        }
+
+        if (ladderCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(ladderCheck.position, ladderCheckRadius);
         }
 
         if (pipeCheck != null)
