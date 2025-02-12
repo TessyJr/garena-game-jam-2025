@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/HomeAndMenuScene.unity
     guid: 424d5fab97a8d47d8ae8ab02dc70fce3
   - enabled: 1
+    path: Assets/Scenes/MenuScene.unity
+    guid: 321bd0456b32f42a8b0f5c6486f3eb0e
+  - enabled: 1
     path: Assets/Scenes/Level0Scene.unity
     guid: a07a6ca1c63c748d2a142c2358bfeab9
   - enabled: 1
@@ -24,27 +27,24 @@ EditorBuildSettings:
     path: Assets/Scenes/Level4Scene.unity
     guid: 1cdb3fcc487734fbb905d89f25f5d0bf
   - enabled: 1
-    path: Assets/Scenes/Level6Scene.unity
-    guid: 46b77f7144af34d5b816c1f90ac3dd6e
-  - enabled: 1
     path: Assets/Scenes/Level5Scene.unity
     guid: e1e116aefc4c14825bd03d0fd54621fd
+  - enabled: 1
+    path: Assets/Scenes/Level6Scene.unity
+    guid: 46b77f7144af34d5b816c1f90ac3dd6e
   - enabled: 1
     path: Assets/Scenes/Level7Scene.unity
     guid: 841ca7460829a44f59135bb0badbe14a
   - enabled: 1
-    path: Assets/Scenes/Level11Scene.unity
-    guid: f9871b771d5ff4ac5b10308d2edf4ac2
+    path: Assets/Scenes/Level8Scene.unity
+    guid: 0f3d13791ac534fa9b7d9c474ee2fe23
   - enabled: 1
     path: Assets/Scenes/Level9Scene.unity
     guid: 4ee600489513c467596f6099785488f9
   - enabled: 1
-    path: Assets/Scenes/MenuScene.unity
-    guid: 321bd0456b32f42a8b0f5c6486f3eb0e
-  - enabled: 1
-    path: Assets/Scenes/Level8Scene.unity
-    guid: 0f3d13791ac534fa9b7d9c474ee2fe23
-  - enabled: 1
     path: Assets/Scenes/Level10Scene.unity
     guid: b59eb299b05374555829d44ec10172bb
+  - enabled: 1
+    path: Assets/Scenes/Level11Scene.unity
+    guid: f9871b771d5ff4ac5b10308d2edf4ac2
   m_configObjects: {}
