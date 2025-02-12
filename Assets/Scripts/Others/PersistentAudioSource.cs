@@ -58,17 +58,10 @@ public class PersistentAudioSource : MonoBehaviour
             return;
         }
 
-        // Debug.Log($"Current AudioClip: {_audioSource.clip}, New Scene AudioClip: {sceneBgmClip}");
-
         if (_audioSource.clip != sceneBgmClip)
         {
             _audioSource.clip = sceneBgmClip;
             _audioSource.Play();
-            // Debug.Log("New BGM set and playing.");
-        }
-        else
-        {
-            // Debug.Log("BGM is already playing the correct clip.");
         }
     }
 }

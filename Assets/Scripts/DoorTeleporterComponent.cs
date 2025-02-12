@@ -9,8 +9,6 @@ public class DoorTeleporterComponent : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log($"Trigger activated by: {other.name}. Loading scene: {_sceneName}");
-
             SceneManager.LoadScene(_sceneName);
         }
     }

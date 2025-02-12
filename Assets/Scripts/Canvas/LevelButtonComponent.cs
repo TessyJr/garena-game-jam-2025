@@ -16,17 +16,13 @@ public class LevelButtonComponent : MonoBehaviour
         {
             button.onClick.AddListener(ChangeScene);
         }
-        else
-        {
-            Debug.LogWarning("Button is not assigned in the inspector.");
-        }
     }
 
     private void ChangeScene()
     {
         // Start the auto-move routine (it can be a coroutine).
         StartCoroutine(_playerMovement.AutoMoveLeft(_movementAmount, _movementTime));
-        
+
         // Schedule the scene load after _movementTime seconds without using a coroutine.
         Invoke(nameof(LoadSceneAfterMovement), _movementTime);
     }
@@ -36,10 +32,6 @@ public class LevelButtonComponent : MonoBehaviour
         if (!string.IsNullOrEmpty(sceneName))
         {
             SceneManager.LoadScene(sceneName);
-        }
-        else
-        {
-            Debug.LogWarning("Scene name is not assigned or is empty.");
         }
     }
 

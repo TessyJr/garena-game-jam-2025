@@ -40,7 +40,6 @@ public class GameInputManager : MonoBehaviour
             // If we want to activate a button, we need to ensure only 2 buttons are activated at a time
             if (activeButtonCount >= 2 && !IsButtonActive(button))
             {
-                Debug.LogWarning("Cannot activate more than two buttons at once.");
                 return; // Don't activate more than two buttons
             }
             else
