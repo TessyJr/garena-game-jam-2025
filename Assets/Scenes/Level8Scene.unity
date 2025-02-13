@@ -122,11 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!61 &116357188 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 1969227285934888587, guid: 5fd24d51c2b124471b593474483df936, type: 3}
-  m_PrefabInstance: {fileID: 1585498472}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &137244129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6602100085551112538, guid: 529552b322c2c467c98c092cd40691d8, type: 3}
@@ -253,8 +248,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 998409580}
   - {fileID: 1931522194}
+  - {fileID: 998409580}
   - {fileID: 1770922945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2029,10 +2024,6 @@ PrefabInstance:
       propertyPath: _sceneName
       value: Level9Scene
       objectReference: {fileID: 0}
-    - target: {fileID: 8255940873554283081, guid: 5fd24d51c2b124471b593474483df936, type: 3}
-      propertyPath: _doorCollider
-      value: 
-      objectReference: {fileID: 116357188}
     - target: {fileID: 8702101486686979216, guid: 5fd24d51c2b124471b593474483df936, type: 3}
       propertyPath: m_Name
       value: Door

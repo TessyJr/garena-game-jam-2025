@@ -2796,10 +2796,6 @@ PrefabInstance:
       propertyPath: _sceneName
       value: Level10Scene
       objectReference: {fileID: 0}
-    - target: {fileID: 8255940873554283081, guid: 5fd24d51c2b124471b593474483df936, type: 3}
-      propertyPath: _doorCollider
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8702101486686979216, guid: 5fd24d51c2b124471b593474483df936, type: 3}
       propertyPath: m_Name
       value: Door
