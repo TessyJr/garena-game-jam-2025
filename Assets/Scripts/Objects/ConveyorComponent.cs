@@ -9,8 +9,7 @@ public class ConveyorComponent : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("ButtonObject"))
         {
-            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (rb != null)
+            if (collision.gameObject.TryGetComponent<Rigidbody2D>(out var rb))
             {
                 Vector2 conveyorForce = direction.normalized * speed;
                 rb.AddForce(conveyorForce, forceMode);
