@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3080021945361933329}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 8.5, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -144,9 +144,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _barrier: {fileID: 0}
-  _openDuration: 7
   _buttonOn: {fileID: 21300000, guid: 363bce9d1d961499087f82600ff0e38c, type: 3}
   _buttonOff: {fileID: 21300000, guid: 99fc13339d6d94438ba613ba97016b39, type: 3}
+  _barrierAudioSource: {fileID: 0}
   _barrier1: {fileID: 21300000, guid: 501eaffc0b2e94613849c41b4eaca466, type: 3}
   _barrier2: {fileID: 21300000, guid: 21d4d0eb3d3ff4a9e90959e4407be21a, type: 3}
   _barrier3: {fileID: 21300000, guid: 1e3d2d2940ced4b149e5e64c286bef60, type: 3}
