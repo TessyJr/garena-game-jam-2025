@@ -1,10 +1,17 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovementComponent : MonoBehaviour
 {
+    [SerializeField] private BoxCollider2D _groundChecker;
+    [SerializeField] private BoxCollider2D _ladderChecker;
+    [SerializeField] private Tilemap _ladderTilemap; // Assign your Tilemap in the Inspector
+
+    [SerializeField] private BoxCollider2D _pipeChecker;
+
     [Header("Menu Canvas Settings")]
     [SerializeField] private MenuCanvasManager _menuCanvasManager;
 
@@ -13,19 +20,6 @@ public class PlayerMovementComponent : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float climbSpeed = 4f;
-
-    [Header("Ground Check Settings")]
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private Vector2 groundCheckSize;
-
-    [Header("Ladder Check Settings")]
-    [SerializeField] private Transform ladderCheck;
-    [SerializeField] private float ladderCheckRadius = 0.15f;
-
-    [Header("Pipe Check Settings")]
-    [SerializeField] private Transform pipeCheck;
-    [SerializeField] private float pipeCheckRadius = 0.15f;
-    [SerializeField] private PipeComponent currentPipe;
 
     [Header("Particle Settings")]
     [SerializeField] private ParticleSystem _dust;
@@ -81,7 +75,7 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         bool wasGrounded = _isGrounded;
 
-        _isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, LayerMask.GetMask("Ground"));
+        _isGrounded = Physics2D.OverlapBox(_groundChecker.bounds.center, _groundChecker.bounds.size, 0, LayerMask.GetMask("Ground"));
 
         if (!wasGrounded && _isGrounded)
         {
@@ -183,12 +177,19 @@ public class PlayerMovementComponent : MonoBehaviour
             return;
         }
 
-        _isOnLadder = Physics2D.OverlapCircle(ladderCheck.position, ladderCheckRadius, LayerMask.GetMask("Ladder"));
+        Collider2D _isOnLadder = Physics2D.OverlapBox(_ladderChecker.bounds.center, _ladderChecker.bounds.size, 0, LayerMask.GetMask("Ladder"));
 
         if (_isOnLadder)
         {
+            GameObject currentLadder = Physics2D.OverlapBox(_ladderChecker.bounds.center, _ladderChecker.bounds.size, 0, LayerMask.GetMask("Ladder")).gameObject;
+
             if (Input.GetKey(KeyCode.W) && GameInputManager.Instance.buttonW)
             {
+                if (!_isClimbing)
+                {
+                    transform.position = new Vector3(currentLadder.transform.position.x, transform.position.y, transform.position.z);
+                }
+
                 _isClimbing = true;
                 _verticalMoveInput = 1f;
             }
@@ -235,12 +236,12 @@ public class PlayerMovementComponent : MonoBehaviour
             return;
         }
 
-        _isOnPipe = Physics2D.OverlapCircle(pipeCheck.position, pipeCheckRadius, LayerMask.GetMask("Pipe"));
+        _isOnPipe = Physics2D.OverlapBox(_pipeChecker.bounds.center, _pipeChecker.bounds.size, 0, LayerMask.GetMask("Pipe"));
 
         if (_isOnPipe)
         {
-            Collider2D pipeCollider = Physics2D.OverlapCircle(pipeCheck.position, pipeCheckRadius, LayerMask.GetMask("Pipe"));
-            currentPipe = pipeCollider.gameObject.GetComponentInParent<PipeComponent>();
+            Collider2D pipeCollider = Physics2D.OverlapBox(_pipeChecker.bounds.center, _pipeChecker.bounds.size, 0, LayerMask.GetMask("Pipe"));
+            PipeComponent currentPipe = pipeCollider.gameObject.GetComponentInParent<PipeComponent>();
 
             if (Input.GetKeyDown(KeyCode.S) && GameInputManager.Instance.buttonS)
             {
@@ -268,27 +269,6 @@ public class PlayerMovementComponent : MonoBehaviour
     private void PlayFallSound()
     {
         _fallSound?.Play();
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (groundCheck != null)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
-        }
-
-        if (ladderCheck != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(ladderCheck.position, ladderCheckRadius);
-        }
-
-        if (pipeCheck != null)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(pipeCheck.position, pipeCheckRadius);
-        }
     }
 
     public Direction GetDirection() => _direction;
