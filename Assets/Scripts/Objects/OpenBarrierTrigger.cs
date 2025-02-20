@@ -3,46 +3,26 @@ using System.Collections;
 
 public class OpenBarrierTrigger : MonoBehaviour
 {
-    [SerializeField] private GameObject _barrier;
-
-    [Header("Button Sprites")]
+    [Header("Button Settigns")]
+    [SerializeField] private SpriteRenderer _buttonSpriteRenderer;
     [SerializeField] private Sprite _buttonOn;
     [SerializeField] private Sprite _buttonOff;
     [SerializeField] private AudioSource _barrierAudioSource;
 
-    [Header("Barrier Sprites")]
-    [SerializeField] private Sprite _barrier1; // Closed
-    [SerializeField] private Sprite _barrier2;
-    [SerializeField] private Sprite _barrier3;
-    [SerializeField] private Sprite _barrier4;
-    [SerializeField] private Sprite _barrier5; // Opened
-
-    private SpriteRenderer _spriteRenderer;
-    private SpriteRenderer _barrierSpriteRenderer;
-
-    private Coroutine _currentAnimationCoroutine;
-
-    private int _triggerCount = 0; // Tracks the number of objects in the trigger zone
-    private bool _isAnimating = false;
-    private bool _shouldOpen = true;
-
-    private void Awake()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _barrierSpriteRenderer = _barrier.GetComponent<SpriteRenderer>();
-    }
+    [Header("Barrier Settings")]
+    [SerializeField] private SpriteRenderer _barrierSpriteRenderer;
+    [SerializeField] private BoxCollider2D _barrierBoxCollider;
+    [SerializeField] private Sprite[] _barrierSprites;
+    private int _barrierSpriteNumber = 0;
+    private Coroutine _barrierCoroutine;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") || other.CompareTag("ButtonObject"))
         {
-            _triggerCount++; // Increment the count when a valid object enters the trigger zone
-            _shouldOpen = true;
-
-            if (!_isAnimating)
-            {
-                StartOpeningBarrier();
-            }
+            if (!gameObject.activeInHierarchy) return; // Prevent running if inactive
+            if (_barrierCoroutine != null) StopCoroutine(_barrierCoroutine);
+            _barrierCoroutine = StartCoroutine(IncreaseBarrierSpriteNumber());
         }
     }
 
@@ -50,90 +30,51 @@ public class OpenBarrierTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("ButtonObject"))
         {
-            _triggerCount--; // Decrement the count when a valid object exits the trigger zone
-
-            if (_triggerCount <= 0)
-            {
-                _triggerCount = 0; // Ensure the count doesn't go negative
-                _shouldOpen = false;
-
-                if (!_isAnimating)
-                {
-                    StartClosingBarrier();
-                }
-            }
+            if (!gameObject.activeInHierarchy) return; // Prevent running if inactive
+            if (_barrierCoroutine != null) StopCoroutine(_barrierCoroutine);
+            _barrierCoroutine = StartCoroutine(DecreaseBarrierSpriteNumber());
         }
     }
 
-    private void StartOpeningBarrier()
+    private IEnumerator IncreaseBarrierSpriteNumber()
     {
-        if (!gameObject.activeInHierarchy) return; // Ensure the GameObject is active
-        if (_currentAnimationCoroutine != null)
+        while (_barrierSpriteNumber < 4)
         {
-            StopCoroutine(_currentAnimationCoroutine);
-        }
+            _buttonSpriteRenderer.sprite = _buttonOn;
+            _barrierAudioSource.Play();
+            _barrierSpriteNumber++;
+            _barrierSpriteRenderer.sprite = _barrierSprites[_barrierSpriteNumber];
 
-        _currentAnimationCoroutine = StartCoroutine(AnimateBarrierOpening());
-    }
+            UpdateBarrierBoxCollider();
 
-    private void StartClosingBarrier()
-    {
-        if (!gameObject.activeInHierarchy) return; // Ensure the GameObject is active
-        if (_currentAnimationCoroutine != null)
-        {
-            StopCoroutine(_currentAnimationCoroutine);
-        }
-
-        _currentAnimationCoroutine = StartCoroutine(AnimateBarrierClosing());
-    }
-
-    private IEnumerator AnimateBarrierOpening()
-    {
-        _isAnimating = true;
-        _spriteRenderer.sprite = _buttonOn;
-
-        if (_barrierAudioSource != null) _barrierAudioSource.Play();
-        Sprite[] openingSprites = { _barrier1, _barrier2, _barrier3, _barrier4, _barrier5 };
-
-        foreach (var sprite in openingSprites)
-        {
-            _barrierSpriteRenderer.sprite = sprite;
             yield return new WaitForSeconds(0.05f);
-
-            // If `_shouldOpen` changes to false mid-animation, stop and close the barrier
-            if (!_shouldOpen)
-            {
-                StartClosingBarrier();
-                yield break;
-            }
         }
-
-        _barrier.SetActive(false);
-        _isAnimating = false;
     }
 
-    private IEnumerator AnimateBarrierClosing()
+    private IEnumerator DecreaseBarrierSpriteNumber()
     {
-        _isAnimating = true;
-        _barrier.SetActive(true);
-
-        if (_barrierAudioSource != null) _barrierAudioSource.Play();
-        Sprite[] closingSprites = { _barrier5, _barrier4, _barrier3, _barrier2, _barrier1 };
-
-        foreach (var sprite in closingSprites)
+        while (_barrierSpriteNumber > 0)
         {
-            _barrierSpriteRenderer.sprite = sprite;
+            _buttonSpriteRenderer.sprite = _buttonOff;
+            _barrierAudioSource.Play();
+            _barrierSpriteNumber--;
+            _barrierSpriteRenderer.sprite = _barrierSprites[_barrierSpriteNumber];
+
+            UpdateBarrierBoxCollider();
+
             yield return new WaitForSeconds(0.05f);
-
-            // If `_shouldOpen` changes to true mid-animation, stop and open the barrier
-            if (_shouldOpen)
-            {
-                StartOpeningBarrier();
-                yield break;
-            }
         }
+    }
 
-        _spriteRenderer.sprite = _buttonOff; // Reset button sprite to "off" after closing
-        _isAnimating = false;
+    private void UpdateBarrierBoxCollider()
+    {
+        if (_barrierSpriteNumber == 4)
+        {
+            _barrierBoxCollider.enabled = false;
+        }
+        else
+        {
+            _barrierBoxCollider.enabled = true;
+        }
     }
 }
