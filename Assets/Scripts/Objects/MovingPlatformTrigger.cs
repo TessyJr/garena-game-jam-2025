@@ -8,6 +8,7 @@ public class MovingPlatformTrigger : MonoBehaviour
     [SerializeField] private Vector3 moveDirection = Vector3.up; // Direction to move the platform
     [SerializeField] private float moveDistance = 2f; // Distance to move in the direction
     [SerializeField] private float moveSpeed = 2f; // Speed of movement
+    [SerializeField] private float delay = 0f; // Speed of movement
 
 
     private Vector3 initialPosition; // The platform's starting position
@@ -91,14 +92,16 @@ public class MovingPlatformTrigger : MonoBehaviour
         {
             // Move to the target position
             Vector3 targetPosition = initialPosition + moveDirection * moveDistance;
-            while (Vector3.Distance(platform.position, targetPosition) > 0.01f)
+            // while (Vector3.Distance(platform.position, targetPosition) > 0.01f)
+            while (Vector3.Distance(platform.position, targetPosition) != 0f)
             {
                 platform.position = Vector3.MoveTowards(platform.position, targetPosition, moveSpeed * Time.deltaTime);
                 yield return null;
             }
 
             // Move back to the initial position
-            while (Vector3.Distance(platform.position, initialPosition) > 0.01f)
+            while (Vector3.Distance(platform.position, initialPosition) != 0f)
+            // while (Vector3.Distance(platform.position, initialPosition) > 0.01f)
             {
                 platform.position = Vector3.MoveTowards(platform.position, initialPosition, moveSpeed * Time.deltaTime);
                 yield return null;

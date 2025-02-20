@@ -156,7 +156,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.205, z: 0}
-  m_LocalScale: {x: -0.24, y: -0.01, z: 1}
+  m_LocalScale: {x: -0.24, y: -0.02, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1126933448705124932}
@@ -844,7 +844,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _groundChecker: {fileID: 4856015224944319792}
   _ladderChecker: {fileID: 5934333849421786230}
-  _ladderTilemap: {fileID: 0}
   _pipeChecker: {fileID: 2994680346728640083}
   _menuCanvasManager: {fileID: 0}
   _direction: 0
@@ -1045,7 +1044,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.205, z: 0}
-  m_LocalScale: {x: 0.315, y: -0.01, z: 1}
+  m_LocalScale: {x: 0.315, y: -0.02, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1126933448705124932}
@@ -1303,7 +1302,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.205, z: 0}
-  m_LocalScale: {x: -0.08, y: -0.01, z: 1}
+  m_LocalScale: {x: -0.08, y: -0.02, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1126933448705124932}
