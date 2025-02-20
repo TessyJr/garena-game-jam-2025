@@ -70,7 +70,6 @@ public class PlayerMovementComponent : MonoBehaviour
         HandleTeleport();
     }
 
-
     private void CheckGroundedStatus()
     {
         bool wasGrounded = _isGrounded;

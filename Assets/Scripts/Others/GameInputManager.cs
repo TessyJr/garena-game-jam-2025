@@ -32,15 +32,13 @@ public class GameInputManager : MonoBehaviour
         UpdateActiveButtonCount();
     }
 
-    // Optional: Add methods to enable/disable specific buttons
     public void SetButtonState(string button, bool state)
     {
         if (state)
         {
-            // If we want to activate a button, we need to ensure only 2 buttons are activated at a time
             if (activeButtonCount >= 2 && !IsButtonActive(button))
             {
-                return; // Don't activate more than two buttons
+                return;
             }
             else
             {
@@ -66,11 +64,9 @@ public class GameInputManager : MonoBehaviour
                 break;
         }
 
-        // Update activeButtonCount after the change
         UpdateActiveButtonCount();
     }
 
-    // Helper method to check if a button is already active
     public bool IsButtonActive(string button)
     {
         return button.ToUpper() switch

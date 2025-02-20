@@ -46,6 +46,14 @@ public class MenuCanvasManager : MonoBehaviour
         {
             HandleCameraMovement();
         }
+
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                ReloadScene();
+            }
+        }
     }
 
     void ReloadScene()
