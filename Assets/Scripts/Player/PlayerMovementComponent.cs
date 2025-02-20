@@ -1,15 +1,13 @@
 using UnityEngine;
 using System;
 using System.Collections;
-using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovementComponent : MonoBehaviour
 {
+    [Header("Chekcer Settings")]
     [SerializeField] private BoxCollider2D _groundChecker;
     [SerializeField] private BoxCollider2D _ladderChecker;
-    [SerializeField] private Tilemap _ladderTilemap; // Assign your Tilemap in the Inspector
-
     [SerializeField] private BoxCollider2D _pipeChecker;
 
     [Header("Menu Canvas Settings")]
@@ -29,18 +27,19 @@ public class PlayerMovementComponent : MonoBehaviour
     [SerializeField] private AudioSource _stairSound;
     [SerializeField] private AudioSource _teleportSound;
 
+    [Header("State Settings")]
+    public bool _isGrounded;
+    public bool _isJumping;
+    public bool _isClimbing;
+    public bool _isOnLadder;
+    public bool _isOnPipe;
+
     private Rigidbody2D rb;
     private PlayerStateComponent _playerState;
 
     private bool movementEnabled = true;
 
     private bool autoMoving = false;
-
-    public bool _isGrounded;
-    public bool _isJumping;
-    public bool _isClimbing;
-    public bool _isOnLadder;
-    public bool _isOnPipe;
 
     private float _horizontalMoveInput = 0f;
     private float _verticalMoveInput = 0f;
@@ -74,7 +73,7 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         bool wasGrounded = _isGrounded;
 
-        _isGrounded = Physics2D.OverlapBox(_groundChecker.bounds.center, _groundChecker.bounds.size, 0, LayerMask.GetMask("Ground"));
+        _isGrounded = Physics2D.OverlapBox(_groundChecker.bounds.center, _groundChecker.bounds.size, 0, LayerMask.GetMask("Ground", "Pipe"));
 
         if (!wasGrounded && _isGrounded)
         {

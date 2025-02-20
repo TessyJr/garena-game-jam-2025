@@ -4,15 +4,9 @@ public class ObjectInputButtonComponent : MonoBehaviour
 {
     [SerializeField] private KeyCode _keyCode;
 
-    [Header("Player Overlap Settings")]
-    [SerializeField] private Transform _playerCheck;
-    [SerializeField] private LayerMask _overlapLayer;
-    [SerializeField] private float _playerCheckRadius = 0.2f;
+    [Header("Chekcer Settings")]
+    [SerializeField] private BoxCollider2D _groundChecker;
 
-    [Header("Ground Check Settings")]
-    [SerializeField] private Transform _groundCheck;
-    [SerializeField] private float _groundCheckRadius = 0.2f;
-    [SerializeField] private LayerMask _groundLayer;
     [Header("Sprite Settings")]
     [SerializeField] private Sprite _wKeySprite;
     [SerializeField] private Sprite _aKeySprite;
@@ -20,11 +14,16 @@ public class ObjectInputButtonComponent : MonoBehaviour
     [SerializeField] private Sprite _dKeySprite;
     [SerializeField] private Sprite _spaceKeySprite;
 
+    [Header("State Settings")]
+    public bool _isGrounded;
+
     private SpriteRenderer _spriteRenderer;
+    private BoxCollider2D _boxCollider;
 
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _boxCollider = GetComponent<BoxCollider2D>();
     }
 
     void Start()
@@ -34,33 +33,17 @@ public class ObjectInputButtonComponent : MonoBehaviour
 
     void Update()
     {
-        Collider2D overlapWithPlayer = Physics2D.OverlapCircle(transform.position, _playerCheckRadius, _overlapLayer);
+        Collider2D _isOverlapWithPlayer = Physics2D.OverlapBox(_boxCollider.bounds.center, _boxCollider.bounds.size, 0, LayerMask.GetMask("Player"));
 
-        bool isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
+        _isGrounded = Physics2D.OverlapBox(_groundChecker.bounds.center, _groundChecker.bounds.size, 0, LayerMask.GetMask("Ground", "Pipe"));
 
-        if (overlapWithPlayer != null && isGrounded)
+        if (_isOverlapWithPlayer != null && _isGrounded)
         {
             if (!GameInputManager.Instance.Is2ButtonsActive())
             {
                 EnableKey();
                 Destroy(gameObject);
             }
-        }
-    }
-
-    // Optional: Visualize the overlap radius and ground check in the editor
-    private void OnDrawGizmosSelected()
-    {
-        if (_groundCheck != null)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(_groundCheck.position, _groundCheckRadius);
-        }
-
-        if (_playerCheck != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_playerCheck.position, _playerCheckRadius);
         }
     }
 
