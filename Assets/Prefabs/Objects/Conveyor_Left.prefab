@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4261923596583284858}
   - component: {fileID: 1297841495943417450}
   - component: {fileID: 5506216927761386120}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Transporter_RightEdge_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 4859177926738055679}
   - component: {fileID: 6631560060991607572}
   - component: {fileID: 6296086869040232796}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Transporter_LeftEdge_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 593940560928042889}
   - component: {fileID: 1850129586246751897}
   - component: {fileID: 1199411085191294012}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Transporter_Center_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 802874476522525887}
   - component: {fileID: 6910945578440905299}
   - component: {fileID: 6996946394272725660}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Conveyor_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ Transform:
   m_GameObject: {fileID: 7449962390421192048}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: -2.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
