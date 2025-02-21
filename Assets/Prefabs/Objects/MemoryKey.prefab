@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6269159354188521074}
   - component: {fileID: 9024402226473949973}
   m_Layer: 7
-  m_Name: InputButtonObject
+  m_Name: MemoryKey
   m_TagString: ButtonObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,11 +175,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keyCode: 32
   _groundChecker: {fileID: 7304126610809213129}
-  _playerCheck: {fileID: 0}
-  _overlapLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _playerCheckRadius: 0.25
   _wKeySprite: {fileID: 21300000, guid: 5781855a28e9a4b65948d0ea3eb93cbb, type: 3}
   _aKeySprite: {fileID: 21300000, guid: 40170d651edc24e47a5f844b73565480, type: 3}
   _sKeySprite: {fileID: 21300000, guid: 512f223ba533c49fdb163d4c417c21a7, type: 3}
