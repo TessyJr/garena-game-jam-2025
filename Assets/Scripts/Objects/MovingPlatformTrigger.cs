@@ -8,8 +8,6 @@ public class MovingPlatformTrigger : MonoBehaviour
     [SerializeField] private Vector3 moveDirection = Vector3.up; // Direction to move the platform
     [SerializeField] private float moveDistance = 2f; // Distance to move in the direction
     [SerializeField] private float moveSpeed = 2f; // Speed of movement
-    [SerializeField] private float delay = 0f; // Speed of movement
-
 
     private Vector3 initialPosition; // The platform's starting position
     private Coroutine moveCoroutine; // Reference to the running coroutine
