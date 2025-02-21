@@ -6528,6 +6528,18 @@ PrefabInstance:
       propertyPath: platform
       value: 
       objectReference: {fileID: 1615239985}
+    - target: {fileID: 3254568087804773425, guid: 940861e3038484e76abc74984d3aec9d, type: 3}
+      propertyPath: moveSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254568087804773425, guid: 940861e3038484e76abc74984d3aec9d, type: 3}
+      propertyPath: moveDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254568087804773425, guid: 940861e3038484e76abc74984d3aec9d, type: 3}
+      propertyPath: moveDirection.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7306104105250345012, guid: 940861e3038484e76abc74984d3aec9d, type: 3}
       propertyPath: m_Name
       value: PlatformButton
