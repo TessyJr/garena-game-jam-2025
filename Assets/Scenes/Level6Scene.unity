@@ -204,6 +204,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3310441022893137259, guid: 364c427359e914ca8a001f12725f7d40, type: 3}
+      propertyPath: _barrier
+      value: 
+      objectReference: {fileID: 1537496250}
+    - target: {fileID: 3310441022893137259, guid: 364c427359e914ca8a001f12725f7d40, type: 3}
       propertyPath: _barrierBoxCollider
       value: 
       objectReference: {fileID: 1537496247}
@@ -1443,6 +1447,11 @@ SpriteRenderer:
 --- !u!4 &1537496249 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2427980540284610912, guid: 273d689739b8447d7b9d0298deb97fed, type: 3}
+  m_PrefabInstance: {fileID: 1537496246}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1537496250 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2610315930059956524, guid: 273d689739b8447d7b9d0298deb97fed, type: 3}
   m_PrefabInstance: {fileID: 1537496246}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1585498472

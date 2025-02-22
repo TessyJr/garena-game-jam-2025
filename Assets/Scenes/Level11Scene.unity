@@ -1375,6 +1375,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 273d689739b8447d7b9d0298deb97fed, type: 3}
+--- !u!1 &319163471 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2610315930059956524, guid: 273d689739b8447d7b9d0298deb97fed, type: 3}
+  m_PrefabInstance: {fileID: 319163470}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &319163472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2427980540284610912, guid: 273d689739b8447d7b9d0298deb97fed, type: 3}
@@ -1460,6 +1465,11 @@ Transform:
 --- !u!212 &380449132 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1174752724881850693, guid: 273d689739b8447d7b9d0298deb97fed, type: 3}
+  m_PrefabInstance: {fileID: 380449129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &380449133 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2610315930059956524, guid: 273d689739b8447d7b9d0298deb97fed, type: 3}
   m_PrefabInstance: {fileID: 380449129}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &381408745
@@ -2049,6 +2059,10 @@ PrefabInstance:
       value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 3310441022893137259, guid: 364c427359e914ca8a001f12725f7d40, type: 3}
+      propertyPath: _barrier
+      value: 
+      objectReference: {fileID: 319163471}
+    - target: {fileID: 3310441022893137259, guid: 364c427359e914ca8a001f12725f7d40, type: 3}
       propertyPath: _barrierBoxCollider
       value: 
       objectReference: {fileID: 319163473}
@@ -2525,6 +2539,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3310441022893137259, guid: 364c427359e914ca8a001f12725f7d40, type: 3}
+      propertyPath: _barrier
+      value: 
+      objectReference: {fileID: 1566381633}
+    - target: {fileID: 3310441022893137259, guid: 364c427359e914ca8a001f12725f7d40, type: 3}
       propertyPath: _barrierBoxCollider
       value: 
       objectReference: {fileID: 1566381630}
@@ -2743,6 +2761,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3310441022893137259, guid: 364c427359e914ca8a001f12725f7d40, type: 3}
+      propertyPath: _barrier
+      value: 
+      objectReference: {fileID: 380449133}
     - target: {fileID: 3310441022893137259, guid: 364c427359e914ca8a001f12725f7d40, type: 3}
       propertyPath: _barrierBoxCollider
       value: 
@@ -7077,6 +7099,11 @@ Transform:
 --- !u!212 &1566381632 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1174752724881850693, guid: 273d689739b8447d7b9d0298deb97fed, type: 3}
+  m_PrefabInstance: {fileID: 1566381629}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1566381633 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2610315930059956524, guid: 273d689739b8447d7b9d0298deb97fed, type: 3}
   m_PrefabInstance: {fileID: 1566381629}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1580483107 stripped
