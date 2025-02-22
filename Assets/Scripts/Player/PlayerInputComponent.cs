@@ -25,7 +25,7 @@ public class PlayerInputComponent : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
-                _playerMovement.SetMovementEnabled(false);
+                // _playerMovement.SetMovementEnabled(false);
                 // Disable A
                 if (Input.GetKeyDown(KeyCode.A) && GameInputManager.Instance.IsButtonActive("A"))
                 {
@@ -66,10 +66,10 @@ public class PlayerInputComponent : MonoBehaviour
                     DropObject(KeyCode.Space);
                 }
             }
-            else
-            {
-                _playerMovement.SetMovementEnabled(true);
-            }
+            // else
+            // {
+            //     _playerMovement.SetMovementEnabled(true);
+            // }
         }
     }
 
