@@ -3959,7 +3959,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1142607385429016765, guid: 3b20e57ba83fe4b50815ec511509d365, type: 3}
       propertyPath: buttonD
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1142607385429016765, guid: 3b20e57ba83fe4b50815ec511509d365, type: 3}
+      propertyPath: buttonS
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1142607385429016765, guid: 3b20e57ba83fe4b50815ec511509d365, type: 3}
+      propertyPath: buttonW
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1142607385429016765, guid: 3b20e57ba83fe4b50815ec511509d365, type: 3}
+      propertyPath: buttonSPACE
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2879602046648437909, guid: 3b20e57ba83fe4b50815ec511509d365, type: 3}
       propertyPath: m_LocalPosition.x

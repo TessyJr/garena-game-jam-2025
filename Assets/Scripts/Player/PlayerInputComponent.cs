@@ -25,51 +25,45 @@ public class PlayerInputComponent : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
-                _playerMovement.SetMovementEnabled(false);
-
-                // Disable A
                 if (Input.GetKeyDown(KeyCode.A) && GameInputManager.Instance.IsButtonActive("A"))
                 {
                     GameInputManager.Instance.SetButtonState("A", false);
-                    // Debug.Log("Button A disabled");
                     DropObject(KeyCode.A);
                 }
-
-                // Disable D
-                if (Input.GetKeyDown(KeyCode.D) && GameInputManager.Instance.IsButtonActive("D"))
+                else if (Input.GetKeyDown(KeyCode.D) && GameInputManager.Instance.IsButtonActive("D"))
                 {
                     GameInputManager.Instance.SetButtonState("D", false);
-                    // Debug.Log("Button D disabled");
                     DropObject(KeyCode.D);
                 }
-
-                // Disable W
-                if (Input.GetKeyDown(KeyCode.W) && GameInputManager.Instance.IsButtonActive("W"))
+                else if (Input.GetKeyDown(KeyCode.W) && GameInputManager.Instance.IsButtonActive("W"))
                 {
                     GameInputManager.Instance.SetButtonState("W", false);
-                    // Debug.Log("Button W disabled");
                     DropObject(KeyCode.W);
                 }
-
-                // Disable S
-                if (Input.GetKeyDown(KeyCode.S) && GameInputManager.Instance.IsButtonActive("S"))
+                else if (Input.GetKeyDown(KeyCode.S) && GameInputManager.Instance.IsButtonActive("S"))
                 {
                     GameInputManager.Instance.SetButtonState("S", false);
-                    // Debug.Log("Button S disabled");
                     DropObject(KeyCode.S);
                 }
-
-                // Disable SPACE
-                if (Input.GetKeyDown(KeyCode.Space) && GameInputManager.Instance.IsButtonActive("SPACE"))
+                else if (Input.GetKeyDown(KeyCode.Space) && GameInputManager.Instance.IsButtonActive("SPACE"))
                 {
                     GameInputManager.Instance.SetButtonState("SPACE", false);
-                    // Debug.Log("Button SPACE disabled");
                     DropObject(KeyCode.Space);
+                }
+                else
+                {
+                    _playerMovement.HandleMovement();
+                    _playerMovement.HandleJumping();
+                    _playerMovement.HandleClimbing();
+                    _playerMovement.HandleTeleport();
                 }
             }
             else
             {
-                _playerMovement.SetMovementEnabled(true);
+                _playerMovement.HandleMovement();
+                _playerMovement.HandleJumping();
+                _playerMovement.HandleClimbing();
+                _playerMovement.HandleTeleport();
             }
         }
     }

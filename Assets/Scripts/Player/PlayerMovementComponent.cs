@@ -37,12 +37,10 @@ public class PlayerMovementComponent : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerStateComponent _playerState;
 
-    private bool movementEnabled = true;
-
     private bool autoMoving = false;
 
-    private float _horizontalMoveInput = 0f;
-    private float _verticalMoveInput = 0f;
+    public float _horizontalMoveInput = 0f;
+    public float _verticalMoveInput = 0f;
 
     public event Action OnGrounded;
 
@@ -61,12 +59,7 @@ public class PlayerMovementComponent : MonoBehaviour
     private void Update()
     {
         CheckGroundedStatus();
-
         HandleAnimation();
-        HandleMovement();
-        HandleJumping();
-        HandleClimbing();
-        HandleTeleport();
     }
 
     private void CheckGroundedStatus()
@@ -126,9 +119,9 @@ public class PlayerMovementComponent : MonoBehaviour
         }
     }
 
-    private void HandleMovement()
+    public void HandleMovement()
     {
-        if (autoMoving || !movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating))
+        if (autoMoving || (_menuCanvasManager != null && _menuCanvasManager._isSpectating))
         {
             return;
         }
@@ -153,9 +146,9 @@ public class PlayerMovementComponent : MonoBehaviour
         rb.velocity = new Vector2(_horizontalMoveInput * moveSpeed, rb.velocity.y);
     }
 
-    private void HandleJumping()
+    public void HandleJumping()
     {
-        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating) || _isClimbing || !_isGrounded)
+        if ((_menuCanvasManager != null && _menuCanvasManager._isSpectating) || _isClimbing || !_isGrounded)
         {
             return;
         }
@@ -168,9 +161,9 @@ public class PlayerMovementComponent : MonoBehaviour
         }
     }
 
-    private void HandleClimbing()
+    public void HandleClimbing()
     {
-        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating))
+        if (_menuCanvasManager != null && _menuCanvasManager._isSpectating)
         {
             return;
         }
@@ -227,9 +220,9 @@ public class PlayerMovementComponent : MonoBehaviour
         }
     }
 
-    private void HandleTeleport()
+    public void HandleTeleport()
     {
-        if (!movementEnabled || (_menuCanvasManager != null && _menuCanvasManager._isSpectating) || _isClimbing || !_isGrounded)
+        if ((_menuCanvasManager != null && _menuCanvasManager._isSpectating) || _isClimbing || !_isGrounded)
         {
             return;
         }
@@ -266,16 +259,13 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void PlayFallSound()
     {
-        _fallSound?.Play();
+        if (_fallSound)
+        {
+            _fallSound.Play();
+        }
     }
 
     public Direction GetDirection() => _direction;
-
-    public void SetMovementEnabled(bool enabled)
-    {
-        movementEnabled = enabled;
-        if (!enabled) rb.velocity = new Vector2(0, rb.velocity.y);
-    }
 
     public IEnumerator AutoMoveLeft(float autoMoveDistance, float duration)
     {
