@@ -63,6 +63,8 @@ public class OpenBarrierTrigger : MonoBehaviour
     {
         while (_barrierSpriteNumber < 4)
         {
+            if (_barrierSpriteRenderer == null) yield break;
+
             _barrierAudioSource.Play();
             _barrierSpriteNumber++;
             _barrierSpriteRenderer.sprite = _barrierSprites[_barrierSpriteNumber];
@@ -77,6 +79,8 @@ public class OpenBarrierTrigger : MonoBehaviour
     {
         while (_barrierSpriteNumber > 0)
         {
+            if (_barrierSpriteRenderer == null) yield break;
+
             _barrierAudioSource.Play();
             _barrierSpriteNumber--;
             _barrierSpriteRenderer.sprite = _barrierSprites[_barrierSpriteNumber];
