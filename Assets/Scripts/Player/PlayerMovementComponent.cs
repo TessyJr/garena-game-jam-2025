@@ -34,6 +34,13 @@ public class PlayerMovementComponent : MonoBehaviour
     public bool _isOnLadder;
     public bool _isOnPipe;
 
+    [Header("Mobile Input")]
+    private bool _mobileLeftPressed;
+    private bool _mobileRightPressed;
+    private bool _mobileUpPressed;
+    private bool _mobileDownPressed;
+    private bool _mobileJumpPressed;
+
     private Rigidbody2D rb;
     private PlayerStateComponent _playerState;
 
@@ -126,13 +133,13 @@ public class PlayerMovementComponent : MonoBehaviour
             return;
         }
 
-        if (Input.GetKey(KeyCode.A) && GameInputManager.Instance.buttonA)
+        if ((Input.GetKey(KeyCode.A) || _mobileLeftPressed) && GameInputManager.Instance.buttonA)
         {
             _horizontalMoveInput = -1f;
             if (_direction == Direction.Right) Flip();
             _direction = Direction.Left;
         }
-        else if (Input.GetKey(KeyCode.D) && GameInputManager.Instance.buttonD)
+        else if ((Input.GetKey(KeyCode.D) || _mobileRightPressed) && GameInputManager.Instance.buttonD)
         {
             _horizontalMoveInput = 1f;
             if (_direction == Direction.Left) Flip();
@@ -153,7 +160,15 @@ public class PlayerMovementComponent : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && GameInputManager.Instance.buttonSPACE)
+        if (_mobileJumpPressed && GameInputManager.Instance.buttonSPACE)
+        {
+            _mobileJumpPressed = false;
+
+            _isJumping = true;
+            _dust.Play();
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && GameInputManager.Instance.buttonSPACE)
         {
             _isJumping = true;
             _dust.Play();
@@ -174,7 +189,7 @@ public class PlayerMovementComponent : MonoBehaviour
         {
             GameObject currentLadder = Physics2D.OverlapBox(_ladderChecker.bounds.center, _ladderChecker.bounds.size, 0, LayerMask.GetMask("Ladder")).gameObject;
 
-            if (Input.GetKey(KeyCode.W) && GameInputManager.Instance.buttonW)
+            if ((Input.GetKey(KeyCode.W) || _mobileUpPressed) && GameInputManager.Instance.buttonW)
             {
                 if (!_isClimbing)
                 {
@@ -234,8 +249,9 @@ public class PlayerMovementComponent : MonoBehaviour
             Collider2D pipeCollider = Physics2D.OverlapBox(_pipeChecker.bounds.center, _pipeChecker.bounds.size, 0, LayerMask.GetMask("Pipe"));
             PipeComponent currentPipe = pipeCollider.gameObject.GetComponentInParent<PipeComponent>();
 
-            if (Input.GetKeyDown(KeyCode.S) && GameInputManager.Instance.buttonS)
+            if ((Input.GetKeyDown(KeyCode.S) || _mobileDownPressed) && GameInputManager.Instance.buttonS)
             {
+                _mobileDownPressed = false;
                 if (currentPipe != null && currentPipe.LinkedPipe != null)
                 {
                     _teleportSound.Play();
@@ -284,5 +300,27 @@ public class PlayerMovementComponent : MonoBehaviour
         rb.MovePosition(targetPosition);
         _horizontalMoveInput = 0f;
         autoMoving = false;
+    }
+
+    public void SetMobileInput(string button, bool pressed)
+    {
+        switch (button.ToUpper())
+        {
+            case "A":
+                _mobileLeftPressed = pressed;
+                break;
+            case "D":
+                _mobileRightPressed = pressed;
+                break;
+            case "W":
+                _mobileUpPressed = pressed;
+                break;
+            case "S":
+                _mobileDownPressed = pressed;
+                break;
+            case "SPACE":
+                _mobileJumpPressed = pressed;
+                break;
+        }
     }
 }

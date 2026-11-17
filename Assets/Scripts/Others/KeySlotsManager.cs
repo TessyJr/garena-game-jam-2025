@@ -55,4 +55,22 @@ public class KeySlotsManager : MonoBehaviour
 
         return activeButtons;
     }
+
+    public string GetActiveButtonName(int slotIndex)
+    {
+        if (_inputManager == null) return null;
+
+        List<string> activeButtons = new List<string>();
+
+        if (_inputManager.buttonW) activeButtons.Add("W");
+        if (_inputManager.buttonA) activeButtons.Add("A");
+        if (_inputManager.buttonS) activeButtons.Add("S");
+        if (_inputManager.buttonD) activeButtons.Add("D");
+        if (_inputManager.buttonSPACE) activeButtons.Add("SPACE");
+
+        if (slotIndex < 0 || slotIndex >= activeButtons.Count)
+            return null;
+
+        return activeButtons[slotIndex];
+    }
 }

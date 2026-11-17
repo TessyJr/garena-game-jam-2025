@@ -100,4 +100,27 @@ public class PlayerInputComponent : MonoBehaviour
             Debug.LogWarning("No object assigned to spawn!");
         }
     }
+
+    public void DiscardKeySlot(string button)
+    {
+        if (!GameInputManager.Instance.IsButtonActive(button))
+            return;
+
+        GameInputManager.Instance.SetButtonState(button, false);
+
+        KeyCode keyCode = button.ToUpper() switch
+        {
+            "A" => KeyCode.A,
+            "D" => KeyCode.D,
+            "W" => KeyCode.W,
+            "S" => KeyCode.S,
+            "SPACE" => KeyCode.Space,
+            _ => KeyCode.None
+        };
+
+        if (keyCode != KeyCode.None)
+        {
+            DropObject(keyCode);
+        }
+    }
 }
