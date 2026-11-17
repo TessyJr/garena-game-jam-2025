@@ -42,29 +42,26 @@ public class KeySlotTouchHandler : MonoBehaviour,
         if (!_isPressed || string.IsNullOrEmpty(_currentButton))
             return;
 
-        float swipeDistance =
-            eventData.position.y - _pointerDownPosition.y;
-
-        if (swipeDistance >= _swipeThreshold)
+        // Normal release.
+        if (_currentButton == "SPACE" || _currentButton == "S")
         {
-            // Stop movement before discarding.
-            _playerMovement.SetMobileInput(_currentButton, false);
-
-            // Discard the key.
-            _playerInput.DiscardKeySlot(_currentButton);
+            _playerMovement.SetMobileInput(_currentButton, true);
         }
-        else
-        {
-            // Normal release.
-            if (_currentButton == "SPACE" || _currentButton == "S")
-            {
-                _playerMovement.SetMobileInput(_currentButton, true);
-            }
 
-            _playerMovement.SetMobileInput(_currentButton, false);
-        }
+        _playerMovement.SetMobileInput(_currentButton, false);
 
         _isPressed = false;
         _currentButton = null;
+    }
+
+    public void OnDiscardButtonClicked()
+    {
+        string button = _keySlotsManager.GetActiveButtonName(_slotIndex);
+
+        if (string.IsNullOrEmpty(button))
+            return;
+
+        _playerMovement.SetMobileInput(button, false);
+        _playerInput.DiscardKeySlot(button);
     }
 }

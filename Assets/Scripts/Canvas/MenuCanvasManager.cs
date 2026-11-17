@@ -18,11 +18,15 @@ public class MenuCanvasManager : MonoBehaviour
     public bool _isSpectating = false;
     [SerializeField] private GameObject _spectatorModeText;
 
+    private Vector2 _lastTouchPosition;
+
     [Header("Home Settings")]
     [SerializeField] private Button _homeButton;
+    private Camera _mainCamera;
 
     void Start()
     {
+        _mainCamera = Camera.main;
         _restartButton.onClick.AddListener(() =>
         {
             ReloadScene();
@@ -90,32 +94,53 @@ public class MenuCanvasManager : MonoBehaviour
         }
     }
 
+
     private void HandleCameraMovement()
     {
         Vector3 newPosition = _cinemachineCamera.transform.position;
 
-        // Get the mouse position in screen space
-        Vector3 mousePosition = Input.mousePosition;
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
 
-        // Check if the mouse is near the edges of the screen
-        if (mousePosition.x < edgeThreshold) // Near the left edge
-        {
-            newPosition.x -= cameraMoveSpeed * Time.deltaTime;
+            if (touch.phase == TouchPhase.Began)
+            {
+                _lastTouchPosition = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+                Vector3 currentWorldPosition = _mainCamera.ScreenToWorldPoint(
+                    new Vector3(touch.position.x, touch.position.y, _mainCamera.nearClipPlane)
+                );
+
+                Vector3 lastWorldPosition = _mainCamera.ScreenToWorldPoint(
+                    new Vector3(_lastTouchPosition.x, _lastTouchPosition.y, _mainCamera.nearClipPlane)
+                );
+
+                Vector3 worldDelta = currentWorldPosition - lastWorldPosition;
+
+                newPosition -= worldDelta;
+
+                _lastTouchPosition = touch.position;
+            }
         }
-        if (mousePosition.x > Screen.width - edgeThreshold) // Near the right edge
+        else
         {
-            newPosition.x += cameraMoveSpeed * Time.deltaTime;
-        }
-        if (mousePosition.y < edgeThreshold) // Near the bottom edge
-        {
-            newPosition.y -= cameraMoveSpeed * Time.deltaTime;
-        }
-        if (mousePosition.y > Screen.height - edgeThreshold) // Near the top edge
-        {
-            newPosition.y += cameraMoveSpeed * Time.deltaTime;
+            Vector3 mousePosition = Input.mousePosition;
+
+            if (mousePosition.x < edgeThreshold)
+                newPosition.x -= cameraMoveSpeed * Time.deltaTime;
+
+            if (mousePosition.x > Screen.width - edgeThreshold)
+                newPosition.x += cameraMoveSpeed * Time.deltaTime;
+
+            if (mousePosition.y < edgeThreshold)
+                newPosition.y -= cameraMoveSpeed * Time.deltaTime;
+
+            if (mousePosition.y > Screen.height - edgeThreshold)
+                newPosition.y += cameraMoveSpeed * Time.deltaTime;
         }
 
-        // Apply the new position to the camera
         _cinemachineCamera.transform.position = newPosition;
     }
 
