@@ -31,10 +31,10 @@ public class KeySlotTouchHandler : MonoBehaviour,
         _isPressed = true;
 
         // Start continuous movement / climbing.
-        if (_currentButton != "SPACE" && _currentButton != "S")
-        {
+        // if (_currentButton != "SPACE" && _currentButton != "S")
+        // {
             _playerMovement.SetMobileInput(_currentButton, true);
-        }
+        // }
     }
 
     public void OnPointerUp(PointerEventData eventData)
