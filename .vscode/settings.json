@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "GarenaGameJam2025.sln"
+    "dotnet.defaultSolution": "garena-game-jam-2025.sln"
 }
