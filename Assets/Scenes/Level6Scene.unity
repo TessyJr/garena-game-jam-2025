@@ -5998,6 +5998,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: KeySlotGUICanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6483934210190807979, guid: e2298019157664ff1b0723387b87139c, type: 3}
+      propertyPath: _playerInput
+      value: 
+      objectReference: {fileID: 142312156}
+    - target: {fileID: 6483934210190807979, guid: e2298019157664ff1b0723387b87139c, type: 3}
+      propertyPath: _playerMovement
+      value: 
+      objectReference: {fileID: 142312155}
     - target: {fileID: 8676509179227440606, guid: e2298019157664ff1b0723387b87139c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
