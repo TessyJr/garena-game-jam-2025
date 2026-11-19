@@ -150,7 +150,7 @@ public class PlayerMovementComponent : MonoBehaviour
             _horizontalMoveInput = 0f;
         }
 
-        rb.velocity = new Vector2(_horizontalMoveInput * moveSpeed, rb.velocity.y);
+        rb.linearVelocity = new Vector2(_horizontalMoveInput * moveSpeed, rb.linearVelocity.y);
     }
 
     public void HandleJumping()
@@ -166,13 +166,13 @@ public class PlayerMovementComponent : MonoBehaviour
 
             _isJumping = true;
             _dust.Play();
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
         else if (Input.GetKeyDown(KeyCode.Space) && GameInputManager.Instance.buttonSPACE)
         {
             _isJumping = true;
             _dust.Play();
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
     }
 
@@ -209,13 +209,13 @@ public class PlayerMovementComponent : MonoBehaviour
 
             if (_isClimbing)
             {
-                rb.velocity = new Vector2(rb.velocity.x, _verticalMoveInput * climbSpeed);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, _verticalMoveInput * climbSpeed);
 
-                if (Mathf.Abs(rb.velocity.y) > 0.1f && !_stairSound.isPlaying)
+                if (Mathf.Abs(rb.linearVelocity.y) > 0.1f && !_stairSound.isPlaying)
                 {
                     _stairSound.Play();
                 }
-                else if (Mathf.Abs(rb.velocity.y) < 0.1f && _stairSound.isPlaying)
+                else if (Mathf.Abs(rb.linearVelocity.y) < 0.1f && _stairSound.isPlaying)
                 {
                     _stairSound.Stop();
                 }

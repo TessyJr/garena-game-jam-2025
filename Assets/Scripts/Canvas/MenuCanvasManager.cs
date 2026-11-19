@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Cinemachine;
+
 using UnityEngine.EventSystems;
 
 public class MenuCanvasManager : MonoBehaviour
@@ -11,7 +11,7 @@ public class MenuCanvasManager : MonoBehaviour
 
     [Header("Spectate Settings")]
     [SerializeField] private Button _spectateButton;
-    [SerializeField] private CinemachineVirtualCamera _cinemachineCamera;
+    [SerializeField] private Unity.Cinemachine.CinemachineVirtualCamera _cinemachineCamera;
     [SerializeField] private GameObject _player;
     [SerializeField] private float cameraMoveSpeed = 8f;
     [SerializeField] private float edgeThreshold = 64f; // Distance from the edge of the screen to trigger movement

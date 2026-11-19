@@ -1,10 +1,10 @@
-using Cinemachine;
+
 using UnityEngine;
 
 public class CinemachineSizeAdjuster : MonoBehaviour
 {
     public PolygonCollider2D cameraBounds; // Assign this in the Inspector
-    public CinemachineVirtualCamera virtualCamera;
+    public Unity.Cinemachine.CinemachineVirtualCamera virtualCamera;
 
     void Start()
     {
